@@ -1,0 +1,15 @@
+Flask
+Flask-Bootstrap
+Flask-Migrate
+Flask-Moment
+Flask-SQLAlchemy
+Flask-WTF
+Sphinx
+click
+coverage
+flake8
+flake8-docstrings
+pytest
+pytest-flask
+pytest-selenium
+psycopg2

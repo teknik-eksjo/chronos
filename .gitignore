@@ -1,0 +1,21 @@
+# Windows image file cache
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle bin used on file shares
+$RECYCLE.BIN/
+
+# Mac desktop service store files
+.DS_Store
+
+# =========================
+# Project specific ignores
+# =========================
+
+venv/
+*.pyc
+__pycache__
+.cache
