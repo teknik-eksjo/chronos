@@ -9,6 +9,7 @@ bootstrap = Bootstrap()
 moment = Moment()
 db = SQLAlchemy()
 
+
 def create_app(config_name):
     """Application factory, see docs_.
 
