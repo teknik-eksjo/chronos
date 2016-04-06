@@ -22,7 +22,7 @@ To initialize the migration system run.
 .. code-block:: none
 
   ./manage.py db init
-  ./manage.py db commit -m "Initial commit message."
+  ./manage.py db migrate -m "Initial commit message."
 
 To initialize the database run.
 
