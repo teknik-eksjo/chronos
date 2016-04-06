@@ -1,0 +1,12 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+install:
+  - pip install -r web/requirements.txt
+before_script:
+  - cd web
+script:
+  - ./manage.py lint
+notifications:
+  - email: false
