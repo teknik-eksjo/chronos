@@ -1,6 +1,7 @@
 Flask
 Flask-Bootstrap
 Flask-Login
+Flask-Mail
 Flask-Migrate
 Flask-Moment
 Flask-SQLAlchemy
