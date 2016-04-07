@@ -30,9 +30,16 @@ manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
 
-@manager.command
-def test(coverage=False, html=True, report=True):
-    """Run the tests."""
+@manager.option('-h', '--no-html', dest='html', action='store_false',
+    help='Do not generate html report.')
+@manager.option('-r', '--no-report', dest='report', action='store_false',
+    help='Do not generate report, only return with exit code.')
+@manager.option('-g', '--gui', dest='gui', action='store_true',
+    help='Run test with selenium.')
+@manager.option('-c', '--coverage', dest='coverage', action='store_true',
+    help='Run with coverage.py.')
+def test(coverage, html, report, gui):
+    """Run tests with py.test."""
     if coverage:
         # Initialize coverage.py.
         import coverage
@@ -41,7 +48,11 @@ def test(coverage=False, html=True, report=True):
 
     # Run all unit tests found in tests folder.
     import pytest
-    exit_code = pytest.main(['-v', 'tests'])
+    if gui:
+        args = ['-v', 'tests']
+    else:
+        args = ['-v', 'tests', '-m', 'not gui']
+    exit_code = pytest.main(args)
 
     if coverage:
         # Sum up the results of the code coverage analysis.
@@ -64,14 +75,17 @@ def test(coverage=False, html=True, report=True):
     raise SystemExit(exit_code)
 
 
-@manager.command
-def lint(all=False, stats=False):
+@manager.option('-s', '--stats', dest='stats', action='store_true',
+    help='Lint and present statistics.')
+@manager.option('-a', '--all', dest='all', action='store_true',
+    help='Lint all files, even those outside of {}/.'.format(APP_FOLDER))
+def lint(all, stats):
     """Run the linter."""
     from flake8 import main as flake8
     import sys
 
     if all:
-        print('Running linter (including skeleton code).')
+        print('Running linter (including files outside of {}/).'.format(APP_FOLDER))
         sys.argv = ['flake8', '.']
     else:
         print('Running Linter...')
