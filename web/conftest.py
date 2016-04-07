@@ -19,7 +19,9 @@ def pytest_collection_modifyitems(items):
         if 'live_server' in getattr(item, 'fixturenames', ()):
             item.add_marker('gui')
 
+
 @pytest.fixture
 def app():
+    """Create an application context."""
     app = create_app('testing')
     return app
