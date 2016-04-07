@@ -31,13 +31,13 @@ manager.add_command('db', MigrateCommand)
 
 
 @manager.option('-h', '--no-html', dest='html', action='store_false',
-    help='Do not generate html report.')
+                help='Do not generate html report.')
 @manager.option('-r', '--no-report', dest='report', action='store_false',
-    help='Do not generate report, only return with exit code.')
+                help='Do not generate report, only return with exit code.')
 @manager.option('-g', '--gui', dest='gui', action='store_true',
-    help='Run test with selenium.')
+                help='Run test with selenium.')
 @manager.option('-c', '--coverage', dest='coverage', action='store_true',
-    help='Run with coverage.py.')
+                help='Run with coverage.py.')
 def test(coverage, html, report, gui):
     """Run tests with py.test."""
     if coverage:
@@ -76,9 +76,9 @@ def test(coverage, html, report, gui):
 
 
 @manager.option('-s', '--stats', dest='stats', action='store_true',
-    help='Lint and present statistics.')
+                help='Lint and present statistics.')
 @manager.option('-a', '--all', dest='all', action='store_true',
-    help='Lint all files, even those outside of {}/.'.format(APP_FOLDER))
+                help='Lint all files, even those outside of {}/.'.format(APP_FOLDER))
 def lint(all, stats):
     """Run the linter."""
     from flake8 import main as flake8
