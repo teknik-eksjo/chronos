@@ -10,6 +10,7 @@ Flask-Moment
 Flask-Script
 Flask-SQLAlchemy
 Flask-WTF
+libsass
 psycopg2
 Sphinx
 pytest
