@@ -1,6 +1,5 @@
-import pytest
 from app import create_app
-
+import pytest
 
 def pytest_collection_modifyitems(items):
     """Handle custom markers.

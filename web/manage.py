@@ -24,7 +24,7 @@ APP_FOLDER = 'app'
 
 # Implement manage.py shell
 def make_shell_context():  # noqa
-    return dict(app=app, db=db, models=models)
+    return dict(app=app, db=db, models=models, Permission=models.Permission, Role=models.Role, User=models.User)
 
 manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
@@ -101,9 +101,13 @@ def lint(all, stats):
 def deploy():
     """Run deployment tasks."""
     from flask_migrate import upgrade
+    from app.models import Role
 
     # Migrate database to latest revision
     upgrade()
+
+    # Create user roles
+    Role.insert_roles()
 
 
 if __name__ == "__main__":

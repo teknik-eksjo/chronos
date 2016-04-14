@@ -8,6 +8,17 @@ class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    CHRONOS_ADMIN = os.environ.get('CHRONOS_ADMIN')
+
+    CHRONOS_MAIL_SENDER = 'Chronos Team <chronos.dev.mail@gmail.com>'
+    CHRONOS_MAIL_SUBJECT_PREFIX = '[Chronos]'
+
+    MAIL_SERVER = 'smtp.sendgrid.net'    
+    MAIL_USE_TLS = True
+    MAIL_PORT = 587
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
     @staticmethod
     def init_app(app):
         pass
@@ -24,6 +35,7 @@ class TestingConfig(Config):
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'postgresql+psycopg2://postgres:secretpassword@localhost/postgres'
 
+    WTF_CSRF_ENABLED = False
 
 class ProductionConfig(Config):
     pass
