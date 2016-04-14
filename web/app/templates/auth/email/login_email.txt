@@ -1,0 +1,4 @@
+<h1>Hello, {{ current_user.first_name }} {{ current_user.last_name }}!</h1>
+<p>Please copy and paste this in your browser url bar, to log in to Chronos:</p>
+<p>{{ url_for('auth.login_email', token=token, _external=True) }}</p>
+<p>Sincerly, Chronos Development Team.</p>
