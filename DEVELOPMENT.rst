@@ -51,8 +51,27 @@ Before creating the first database migration you must initialize the system.
 Tests
 -----
 
-Tests uses Selenium and requires the default driver (Firefox).
+Tests can be run with the following command.
 
 .. code-block:: None
 
   ./manage.py test
+
+If there's tests that use Selenium they can be run with `--gui`.
+
+.. code-block:: None
+
+  ./manage.py test --gui
+
+
+Environment variables
+---------------------
+
+The file `.env` in the `web` directory can be used to set environment variables.
+The environment variables can be seen in the `config.py` file.
+
+.. code-block:: None
+
+  CHRONOS_ADMIN=user@example.com
+  MAIL_USERNAME=user
+  MAIL_PASSWORD=secretpassword
