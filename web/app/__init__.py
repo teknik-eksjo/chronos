@@ -22,6 +22,11 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 
+    if app.config.get('DEBUG'):
+        from sassutils.wsgi import SassMiddleware
+
+        app.wsgi_app = SassMiddleware(app.wsgi_app, {'app': ('static/sass', 'static/css', '/static/css')})
+
     bootstrap.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
