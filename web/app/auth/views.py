@@ -62,7 +62,7 @@ def login_email(token):
     try:
         data = s.loads(token)
     except:
-        abort(404)
+        abort(403)
     # Gets user id from the token.
     user = User.query.filter_by(id=data.get('login')).first()
 
