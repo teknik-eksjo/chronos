@@ -110,9 +110,13 @@ def sass():
 def deploy():
     """Run deployment tasks."""
     from flask_migrate import upgrade
+    from app.models import Role
 
     # Migrate database to latest revision
     upgrade()
+
+    # Create user roles
+    Role.insert_roles()
 
 
 if __name__ == "__main__":
