@@ -1,6 +1,8 @@
-<h1>Hello, {{ user.first_name }} {{ user.last_name }}!</h1>
-<p>This email contains a link for you to sign in to chronos.</p>
-<p><a href="{{ url_for('auth.login_email', token=token, _external=True) }}">Click here to sign in</a></p>
-<p>If the link does not work, please copy and paste this in your browser url bar:</p>
+<h1>Kära, {{ user.first_name }} {{ user.last_name }}!</h1>
+<p>Detta mail innehåller en länk som låter dig logga in i Chronos.</p>
+<p><a href="{{ url_for('auth.login_email', token=token, _external=True) }}">Klicka här för att logga in</a></p>
+<p>Om länken inte fungerar, vänligen klistra in följande länk i webbläsarens adressfält:</p>
 <p>{{ url_for('auth.login_email', token=token, _external=True) }}</p>
-<p>Sincerly, Chronos Development Team.</p>
+<p>Hälsningar,</p>
+<p>Chronos Development Team</p>
+<p><small>Observera: svar till denna e-postadress ej blir lästa.</small></p>

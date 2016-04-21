@@ -1,4 +1,11 @@
-<h1>Hello, {{ current_user.first_name }} {{ current_user.last_name }}!</h1>
-<p>Please copy and paste this in your browser url bar, to log in to Chronos:</p>
-<p>{{ url_for('auth.login_email', token=token, _external=True) }}</p>
-<p>Sincerly, Chronos Development Team.</p>
+Kära, {{ user.first_name }} {{ user.last_name }}!
+
+Detta mail innehåller en länk som låter dig logga in i Chronos.
+
+Vänligen klistra in följande länk i webbläsarens adressfält:
+{{ url_for('auth.login_email', token=token, _external=True) }}
+
+Hälsningar,
+Chronos Development Team
+
+Observera: svar till denna e-postadress ej blir lästa.

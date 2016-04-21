@@ -1,11 +1,10 @@
-Dear {{ user.username }},
+Kära {{ user.username }},
 
-To confirm your new email address click on the following link:
+Vänligen klistra in länken nedan i webbläsarens adressfält för att bekräfta din nya e-postadress:
 
 {{ url_for('auth.change_email', token=token, _external=True) }}
 
-Sincerely,
+Hälsningar,
+Chronos Development Team
 
-The Flasky Team
-
-Note: replies to this email address are not monitored.
+Observera: svar till denna e-postadress ej blir lästa.

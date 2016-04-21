@@ -1,7 +1,7 @@
-<p>Dear {{ user.username }},</p>
-<p>To confirm your new email address <a href="{{ url_for('auth.change_email', token=token, _external=True) }}">click here</a>.</p>
-<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>Kära {{ user.username }},</p>
+<p>Vänligen <a href="{{ url_for('auth.change_email', token=token, _external=True) }}">klicka här</a> för att bekräfta din nya e-postadress.</p>
+<p>Alternativt så kan du klistra in den följande länken i webbläsarens adressfält:</p>
 <p>{{ url_for('auth.change_email', token=token, _external=True) }}</p>
-<p>Sincerely,</p>
-<p>The Flasky Team</p>
-<p><small>Note: replies to this email address are not monitored.</small></p>
+<p>Hälsningar,</p>
+<p>Chronos Development Team</p>
+<p><small>Observera: svar till denna e-postadress ej blir lästa.</small></p>
