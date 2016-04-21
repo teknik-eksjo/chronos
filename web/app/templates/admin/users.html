@@ -26,9 +26,9 @@
         </thead>
         <tbody>
         {% for teacher in teachers %}
-        <tr>
-                <td>{{ teacher.first_name }}</td>
-                <td>{{ teacher.last_name }}</td>
+        <tr class="teacher">
+                <td class="first-name">{{ teacher.first_name }}</td>
+                <td class="last-name">{{ teacher.last_name }}</td>
                 <td>{{ teacher.email }}</td>
                 <td>{{ teacher.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</td>
                 <td><a href="#" class="btn btn-primary">Redigera</a></td>
@@ -40,5 +40,5 @@
   </div>
 </div>
 
-
+<script src="{{ url_for('static', filename='js/admin-search.js') }}"></script>
 {% endblock %}
