@@ -1,10 +1,10 @@
 Kära {{ user.username }},
 
-Vänligen klistra in länken nedan i webbläsarens adressfält för att bekräfta din nya e-postadress:
+Vänligen klistra in följande länk i webbläsarens adressfält för att bekräfta din nya e-postadress:
 
 {{ url_for('auth.change_email', token=token, _external=True) }}
 
 Hälsningar,
 Chronos Development Team
 
-Observera: svar till denna e-postadress ej blir lästa.
+Observera: svar till denna e-postadress blir ej lästa.
