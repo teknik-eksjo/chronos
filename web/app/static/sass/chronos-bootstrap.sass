@@ -1,31 +1,41 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300)
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700)
 
 $primary-color: #444
 $primary-bg: #f7f7f7
-$border-radius: 1.5px
+$border-radius: 1px
+
+$lato: 'Lato', sans-serif
+$sans: 'Open Sans', sans-serif
 
 body
-  font-family: 'Lato', sans-serif
+  font-family: $sans
   background: $primary-bg
   color: $primary-color
   letter-spacing: 0.02em
   font-size: 1.5em
+
+h1, h2, h3
+  // All headings use the Lato font - paragraphs and everything else is Open Sans
+  font-family: $lato
+  font-weight: 300
+
 h1
+  // All uppercase tag - for big page titles
   font-size: 2.5em
-  letter-spacing: 0.15em
-  text-transform: uppercase
-  font-weight: 300
-h2
-  font-size: 2em
-  text-transform: uppercase
   letter-spacing: 0.1em
-  font-weight: 300
-h3
-  font-size: 1.5em
   text-transform: uppercase
+h2
+  // Neutral heading - for smaller headings or big text
+  font-size: 2.2em
+  letter-spacing: 0.03em
+h3
+  // Same as h2 but a bit smaller and thicker
+  font-size: 1.5em
   letter-spacing: 0.05em
-  font-weight: 300
+  font-weight: 400
 p
+  // Everything else basically
   font-size: 1.2em
   font-weight: 300
 
@@ -35,15 +45,15 @@ p
   font-weight: 400
   text-transform: uppercase
   border: none
-  transition: 0.1s ease
+  transition: all 0.2s ease
 
 .btn-default, .btn-default:hover
-  background: transparent
+  background: $primary-color
   border: solid 1px $primary-color
-  color: $primary-color
+  color: #fff
 .btn-default:hover
-  color: #666
-  border-color: #666
+  background: transparent
+  color: $primary-color
 
 .btn-success, .btn-success:hover
   background: #68DCB0
@@ -91,6 +101,7 @@ p
 
 label
   font-weight: 400
+  font-family: $lato
 .table
   th
     font-weight: 400
