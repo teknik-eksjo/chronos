@@ -31,6 +31,11 @@ def before_request():
         current_user.ping()
 
 
+@auth.route('/', methods=['GET', 'POST'])
+def index():
+    return redirect(url_for('auth.login'))
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     """Route for signing in.
