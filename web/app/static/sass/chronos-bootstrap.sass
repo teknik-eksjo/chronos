@@ -1,9 +1,7 @@
+@import "utilities/variables"
+
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300)
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700)
-
-$primary-color: #444
-$primary-bg: #f7f7f7
-$border-radius: 1px
 
 $lato: 'Lato', sans-serif
 $sans: 'Open Sans', sans-serif
@@ -11,7 +9,7 @@ $sans: 'Open Sans', sans-serif
 body
   font-family: $sans
   background: $primary-bg
-  color: $primary-color
+  color: $black
   letter-spacing: 0.02em
   font-size: 1.5em
 
@@ -48,53 +46,53 @@ p
   transition: all 0.2s ease
 
 .btn-default, .btn-default:hover
-  background: $primary-color
-  border: solid 1px $primary-color
+  background: $black
+  border: solid 1px $black
   color: #fff
 .btn-default:hover
   background: transparent
-  color: $primary-color
+  color: $black
 
 .btn-success, .btn-success:hover
-  background: #68DCB0
-  border: solid 1px #68DCB0
+  background: $green
+  border: solid 1px $green
 .btn-success:hover
   background: transparent
-  color: #68DCB0
+  color: $green
 
 .btn-primary, .btn-primary:hover
-  background: #749FED
-  border: solid 1px #749FED
+  background: $blue
+  border: solid 1px $blue
 .btn-primary:hover
   background: transparent
-  color: #749FED
+  color: $blue
 
 .btn-info, .btn-info:hover
-  background: #6FE3E1
-  border: solid 1px #6FE3E1
+  background: $light-blue
+  border: solid 1px $light-blue
 .btn-info:hover
   background: transparent
-  color: #6FE3E1
+  color: $light-blue
 
 .btn-danger, .btn-danger:hover
-  background: #ED8274
-  border: solid 1px #ED8274
+  background: $red
+  border: solid 1px $red
 .btn-danger:hover
   background: transparent
-  color: #ED8274
+  color: $red
 
 .btn-warning, .btn-warning:hover
-  background: #F5DA71
-  border: solid 1px #F5DA71
+  background: $yellow
+  border: solid 1px $yellow
 .btn-warning:hover
   background: transparent
-  color: #F5DA71
+  color: $yellow
 
 .form-control
   font-size: 15px
   border-radius: $border-radius
   font-weight: 300
-  border: solid 1px #E5E5E5 !important
+  border: solid 1px $light-grey !important
 .form-control:focus
   box-shadow: 0 0 4px rgba(114, 229, 187, 0.9)
   outline: none
