@@ -1,8 +1,8 @@
 {% extends "bootstrap/base.html" %}
 {% block styles%}
 {{ super() }}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css">
 <link href="{{ url_for('static', filename='css/chronos-bootstrap.sass.css') }}" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 {% endblock%}
 {% block title %}Chronos{% endblock %}
 
@@ -23,4 +23,5 @@
 {% block scripts %}
 {{ super() }}
 {{ moment.include_moment() }}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 {% endblock %}

@@ -1,0 +1,99 @@
+@import "utilities/variables"
+
+.ui-slider
+  text-decoration: none !important
+  border-radius: 1.5px
+  border: solid 1px $light-grey
+
+  .ui-slider-handle
+    overflow: visible !important
+    outline: none !important
+    border-radius: 50%
+    border: none
+
+  .ui-slider-tooltip
+    display: none
+
+  .ui-state-hover .ui-slider-tooltip, .ui-state-is-sliding .ui-slider-tooltip
+    display: block
+    position: absolute
+    bottom: 25px
+    text-align: center
+    padding: .5em 1em
+    font-size: .9em
+    border: solid 1px $light-grey
+    white-space: nowrap
+    transform: translateX(-43%)
+
+  li span.ui-slider-label, dd span.ui-slider-label
+    display: none
+
+  li span.ui-slider-label-show, dd span.ui-slider-label-show
+    display: block
+
+  span.ui-slider-tic
+    position: absolute
+    left: 0
+    height: .8em
+    top: -1.3em
+
+  li span.ui-widget-content, dd span.ui-widget-content
+    border-right: 0
+    border-left-width: 1px
+    border-left-style: solid
+    border-top: 0
+    border-bottom: 0
+
+  .first .ui-slider-tic, .last .ui-slider-tic
+    display: none
+
+.slider
+  margin-bottom: 50px
+  width: 95%
+  float: left
+
+.slider-controller
+  padding-top: 0
+
+.ui-slider-handle
+  &.wake, &.return, &.leave, &.sleep
+    background: $black
+
+a[data-temperature="leave"], .ui-slider-range.leave
+  background: $white
+
+a[data-temperature="return"], .ui-slider-range.return, a[data-temperature="wake"], .ui-slider-range.wake
+  background: $green
+
+// Main tick lines
+.slider-tick-mark-main
+  display: inline-block
+  width: 1px
+  background: #bbb
+  height: 7px
+  position: absolute
+  top: 15px
+  font-size: 11px
+
+// Tick line text
+.slider-tick-mark-main-text
+  display: inline-block
+  width: 20px
+  height: 10px
+  position: absolute
+  top: 25px
+  font-size: 11px
+  text-align: center
+  margin-left: -9px
+
+// Smaller tick lines
+.slider-tick-mark-side
+  display: inline-block
+  width: 1px
+  background: #ccc
+  height: 5px
+  position: absolute
+  top: 15px
+
+.slider span.ui-slider-tooltip
+  width: auto
