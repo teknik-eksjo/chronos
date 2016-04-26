@@ -30,33 +30,33 @@ def index():
     return render_template('admin/admin.html')
 
 
-@admin.route('/users', methods=['GET', 'POST'])
+@admin.route('/teachers', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def users():
+def teachers():
     teachers = User.query.filter_by(password_hash=None).order_by(User.first_name)
-    return render_template('admin/users.html', teachers=teachers)
+    return render_template('admin/teachers.html', teachers=teachers)
 
 
-@admin.route('/users/add', methods=['GET', 'POST'])
+@admin.route('/teachers/add', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def add_user():
+def add_teacher():
     form = AddTeacherForm()
 
     if form.validate_on_submit():
         user = User(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('admin.users'))
+        return redirect(url_for('admin.teachers'))
 
     return render_template('admin/add.html', form=form)
 
 
-@admin.route('/users/upload', methods=['GET', 'POST'])
+@admin.route('/teachers/upload', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def upload_users():
+def upload_teachers():
     form = ExcelUploadForm()
 
     if form.validate_on_submit():
