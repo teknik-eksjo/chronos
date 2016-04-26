@@ -13,7 +13,7 @@ from flask.ext.login import (login_user,
 from . import admin
 from .. import db
 from ..decorators import admin_required, permission_required
-from .forms import AddTeacherForm, ExcelUploadForm
+from .forms import AddTeacherForm, ExcelUploadForm, EditTeacherForm
 from ..models import User
 from sqlalchemy import desc
 
@@ -51,6 +51,21 @@ def add_teacher():
         return redirect(url_for('admin.teachers'))
 
     return render_template('admin/add.html', form=form)
+
+
+@admin.route('/teachers/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_teacher(id):
+    user = User.query.filter_by(id=id).first()
+    form = EditTeacherForm(obj=user)
+
+    if form.validate_on_submit():
+        form.populate_obj(user)
+        db.session.commit()
+        return redirect(url_for('admin.teachers'))
+
+    return render_template('admin/edit_teacher.html', form=form)
 
 
 @admin.route('/teachers/upload', methods=['GET', 'POST'])
