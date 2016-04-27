@@ -72,9 +72,10 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     password_hash = db.Column(db.String(128), default=None)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    schedules = db.relationship('Schedule', backref='user', lazy='dynamic')
 
     def __init__(self, **kwargs):
         """Init-method used for assigning roles.
@@ -185,6 +186,74 @@ class AnonymousUser(AnonymousUserMixin):
 
     def is_administrator(self):
         return False
+
+
+class Schedule(db.Model):
+    """Database model for schedules."""
+    __tablename__ = 'schedules'
+    id = db.Column(db.Integer, primary_key=True)
+    approved = db.Column(db.Boolean)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    work_period_id = db.Column(db.Integer, db.ForeignKey("work_periods.id"))
+    deviations = db.relationship('Deviation', backref='schedule', lazy='dynamic')
+    base_schedule = db.relationship('BaseSchedule', backref='schedule', lazy='dynamic')
+
+    def __init__(self):
+        pass
+
+
+class Deviation(db.Model):
+    """Database model for deviations."""
+    __tablename__ = 'deviations'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
+    start = db.Column(db.Time)
+    lund_start = db.Column(db.Time)
+    lunch_end = db.Column(db.Time)
+    end = db.Column(db.Time)
+    schedule_id = db.Column(db.Integer, db.ForeignKey("schedules.id"))
+
+    def __init__(self):
+        pass
+
+
+class BaseSchedule(db.Model):
+    """Database model for base_schedules."""
+    __tablename__ = 'base_schedules'
+    id = db.Column(db.Integer, primary_key=True)
+    schedule_id = db.Column(db.Integer, db.ForeignKey("schedules.id"))
+    workdays = db.relationship('Workday', backref='base_schedule', lazy='dynamic')
+
+    def __init__(self):
+        pass
+
+
+class Workday(db.Model):
+    """Database model for workdays."""
+    __tablename__ = 'workdays'
+    id = db.Column(db.Integer, primary_key=True)
+    index = db.Column(db.Integer)
+    start = db.Column(db.Time)
+    lunch_start = db.Column(db.Time)
+    lunch_end = db.Column(db.Time)
+    end = db.Column(db.Time)
+    base_schedule_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+    def __init__(self):
+        pass
+
+
+class WorkPeriod(db.Model):
+    """Database model for work_periods."""
+    __tablename__ = 'work_periods'
+    id = db.Column(db.Integer, primary_key=True)
+    start = db.Column(db.Date)
+    end = db.Column(db.Date)
+    schedules = db.relationship('Schedule', backref='work_period', lazy='dynamic')
+
+    def __init__(self):
+        pass
+
 
 # Sets login_managers anonymous_user to AnonymousUser-class.
 login_manager.anonymous_user = AnonymousUser
