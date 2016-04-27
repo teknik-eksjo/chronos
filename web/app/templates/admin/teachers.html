@@ -31,7 +31,7 @@
                 <td class="last-name">{{ teacher.last_name }}</td>
                 <td>{{ teacher.email }}</td>
                 <td>{{ teacher.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                <td><a href="#" class="btn btn-primary">Redigera</a></td>
+                <td><a href="{{ url_for('admin.edit_teacher', id=teacher.id) }}" class="btn btn-primary">Redigera</a></td>
                 <td><a href="#" class="btn btn-danger">Ta bort</a></td>
         </tr>
         {% endfor %}

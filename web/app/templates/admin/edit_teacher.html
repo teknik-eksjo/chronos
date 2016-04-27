@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Redigera lärare{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Redigera lärare</h1>
+    <a href="{{ url_for('admin.teachers') }}">Tillbaka</a>
+</div>
+<div class="col-md-4">
+    {{ wtf.quick_form(form) }}
+</div>
+{% endblock %}
