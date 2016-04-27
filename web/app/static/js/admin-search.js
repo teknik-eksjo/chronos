@@ -1,18 +1,18 @@
-function contains(str, substr) {
+function contains (str, substr) {
   /*
   Return true if str contains substr
   */
   return str.indexOf(substr) > -1
 }
 
-function filterTeachers(query) {
+function filterTeachers (query) {
   /*
   Search for teachers with a specific name and only show relevant results
   */
   var teachers = $('.teacher')
   query = query.toLowerCase()
 
-  teachers.each(function() {
+  teachers.each(function () {
     var firstName = this.children[0].innerText.toLowerCase()
     var lastName = this.children[1].innerText.toLowerCase()
     var fullName = firstName + ' ' + lastName
@@ -30,15 +30,15 @@ function filterTeachers(query) {
   })
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   var search = $('#search')
   search.focus()
 
-  search.on('input', function(e) {
+  search.on('input', function (e) {
     filterTeachers(search.val())
   })
 
-  search.on('keydown', function(e) {
+  search.on('keydown', function (e) {
     if (e.keyCode === 13) {
       filterTeachers(search.val())
       search.val('')
