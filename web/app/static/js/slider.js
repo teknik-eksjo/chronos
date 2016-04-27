@@ -37,7 +37,7 @@
             var result = padString + inputString;
             var remFromLeft = result.length - chars;
             return result.substr(remFromLeft);
-        },        
+        },
         // get time from float (e.g. 22.5 => 22:30)
         _getTimeStringFromFloat: function(time) {
             time = parseFloat(time);
@@ -63,7 +63,7 @@
             this._handleIndex = null;
             this._detectOrientation();
             this._mouseInit();
-            
+
             // add tick wrapper
             $('<div class="ticks"></div>').appendTo(this.element);
 
@@ -77,18 +77,18 @@
 
             // create handles
             this._refreshHandles();
-            
+
             // create ticks if option is not disabled
             if (o.ticks !== false) {
                 this._createTicks();
             }
             // call refresh value
             this._refreshValue();
-            
+
             this._activateHandle(o.activeHandle);
 
         },
-        
+
         // _setOptions is called with a hash of all options that are changing
         // always refresh when changing options
         _setOptions: function() {
@@ -106,14 +106,14 @@
             var min = this._valueMin();
             var max = this._valueMax();
             var spacing = (100 / (max - min) * 60);     // the percentage used to space between each tick
-            
+
             var tickWrapper = $(this.element).find('div.ticks');
 
             // create ticks
-            // this loop starts at 0 and ends at the difference between max and min because the spacing 
+            // this loop starts at 0 and ends at the difference between max and min because the spacing
             // between ticks won't work if i starts at a high number
             for (var i = 0; i <= (max - min) / 60; i += o.ticks.tickSide) {
-                
+
                 // whole number --> Use main tick symbol
                 if ((i / o.ticks.tickMain) % 1 === 0) {
                     $('<span class="slider-tick-mark-main"></span>')
@@ -132,14 +132,14 @@
                     $('<span class="slider-tick-mark-side"></span>')
                     .css('left', (spacing * i) +  '%')
                     .appendTo(tickWrapper);
-                    
+
                     if (o.ticks.tickShowLabelSide) {
                         $('<span class="slider-tick-mark-side-text">' + (i + (min / 60)) + '</span>')
                         .css('left', (spacing * i) +  '%')
                         .appendTo(tickWrapper);
                     }
                 }
-                    
+
             }
         },
 
@@ -149,25 +149,25 @@
             $('.ui-slider-handle', this.element).remove();
             // remove all range elements
             $('.ui-slider-range', this.element).remove();
-            
+
             // add handles for present values
-            if (o.handles && o.handles.length) {                
+            if (o.handles && o.handles.length) {
                 // store this element
                 var elem = self.element;
-                
+
                 // sort the handles by value
                 o.handles.sort(function(a, b) {
                     return a.value - b.value;
                 });
                 o.values = [];
-                
+
                 // go through all handles
                 $.each(o.handles, function(i) {
                     o.values.push(o.handles[i].value);
-                    
+
                     // create handle element
                     var handle = $('<a href="#"></a>');
-                    
+
                     // append with classes
                     handle.appendTo(elem)
                     .addClass('ui-slider-handle')
@@ -175,13 +175,13 @@
                     .attr('data-value', o.handles[i].value)
                     .addClass('ui-state-default'
                         + ' ui-corner-all');
-                    
+
                     // if handle type was set
-                    if (o.handles[i].type !== null) {                        
+                    if (o.handles[i].type !== null) {
                         handle.attr('data-type', o.handles[i].type)
                         .addClass(o.handles[i].type);
                     }
-                    
+
                     // create ranges for all handles
                     if (i < o.handles.length-1) {
                         // create range element
@@ -190,16 +190,16 @@
                         range
                         .appendTo(elem)
                         .addClass('ui-slider-range').addClass('ui-widget-header');
-                        
+
                         // if handle type was set
-                        if (o.handles[i].type !== null) {                        
+                        if (o.handles[i].type !== null) {
                             range.attr('data-type', o.handles[i].type)
                             .addClass(o.handles[i].type);
                         }
                     }
                 });
             }
-            
+
 
             this.handles = $('a.ui-slider-handle', this.element);
 
@@ -210,7 +210,7 @@
                 event.preventDefault();
                 // activate handle
                 self._activateHandle($(this).attr('data-id'));
-                
+
             //$(this).addClass('ui-state-active');
             })
             .hover(function() {
@@ -303,12 +303,12 @@
         },
 
         _activateHandle: function(index) {
-            
+
             // all handles
             this.handles = $('a.ui-slider-handle', this.element);
             // remove active handle indicator
             $(this.handles).removeClass('ui-state-active');
-            
+
             // get the activated handle
             var handle = $(this.handles).eq(index);
             // add class
@@ -317,14 +317,14 @@
             var value = handle.attr('data-value');
             // get type
             var type = handle.attr('data-type');
-            
+
             // set active handle
             this.options.activeHandle = index;
-            
+
             // trigger the handleActivated event
             this._trigger('handleActivated', null, {
-                index: index, 
-                value: value, 
+                index: index,
+                value: value,
                 type: type
             });
         },
@@ -361,18 +361,18 @@
             this.elementOffset = this.element.offset();
 
             var position = {
-                x: event.pageX, 
+                x: event.pageX,
                 y: event.pageY
             };
             var normValue = this._normValueFromMouse(position);
 
             var distance = this._valueMax() - this._valueMin() + 1, closestHandle;
             var self = this, index;
-            
+
             // if there is an active handle, set that
             if (self._handleIndex !== null)
                 closestHandle = $(self.handles[self._handleIndex]);
-            else {            
+            else {
                 self.handles.each(function(i) {
                     var thisDistance = Math.abs(normValue - self.values(i));
                     if (distance > thisDistance) {
@@ -393,13 +393,13 @@
             this._start(event, index);
 
             self._handleIndex = index;
-            
+
             this._activateHandle($(closestHandle).attr('data-id'));
-        
+
             var offset = closestHandle.offset();
             var mouseOverHandle = !$(event.target).parents().andSelf().is('.ui-slider-handle');
             this._clickOffset = mouseOverHandle ? {
-                left: 0, 
+                left: 0,
                 top: 0
             } : {
                 left: event.pageX - offset.left - (closestHandle.width() / 2),
@@ -422,11 +422,11 @@
 
         _mouseDrag: function(event) {
             var position = {
-                x: event.pageX, 
+                x: event.pageX,
                 y: event.pageY
             };
             var normValue = this._normValueFromMouse(position);
-        
+
             this._slide(event, this._handleIndex, normValue);
 
             return false;
@@ -442,7 +442,7 @@
 
             return false;
         },
-    
+
         _detectOrientation: function() {
             this.orientation = this.options.orientation == 'vertical' ? 'vertical' : 'horizontal';
         },
@@ -495,13 +495,13 @@
             var handle = this.handles[index];
 
             if (this.options.values && this.options.values.length) {
-            
+
                 var oldVal = this.values(index);
 
-                if (oldVal < newVal && index < this.options.values.length - 1 && newVal >= this.options.values[index+1]) 
+                if (oldVal < newVal && index < this.options.values.length - 1 && newVal >= this.options.values[index+1])
                     newVal = this.options.values[index+1] - this.options.step;
 
-                if (oldVal > newVal && index > 0 && newVal <= this.options.values[index-1]) 
+                if (oldVal > newVal && index > 0 && newVal <= this.options.values[index-1])
                     newVal = this.options.values[index-1] + this.options.step;
 
                 if (newVal != oldVal) {
@@ -529,7 +529,7 @@
                     if (allowed !== false) {
                         this._setData('value', newVal, ( event.type == 'mousedown' && this.options.animate ));
                     }
-                    
+
                 }
 
             }
@@ -599,7 +599,7 @@
                 case 'orientation':
 
                     this._detectOrientation();
-                
+
                     this.element
                     .removeClass('ui-slider-horizontal ui-slider-vertical')
                     .addClass('ui-slider-' + this.orientation);
@@ -662,18 +662,18 @@
                 var diff = this._valueMax() - this._valueMin();
                 var allHandles = this.handles;
                 this.handles.each(function(i, j) {
-                    
+
                     var valPercent = (self.values(i) - min) / diff * 100;
                     // value of handler in percent
                     //var valPercent = ($(this).attr('data-value') - min) / diff * 100;
-                    var _set = {};                    
+                    var _set = {};
                     _set[self.orientation == 'horizontal' ? 'left' : 'bottom'] = valPercent + '%';
                     $(this).stop(1,1)[animate ? 'animate' : 'css'](_set, o.animate);
-                                
+
                     // add attribute with value
                     $(this).attr('data-value', self.values(i));
                     o.handles[i].value = self.values(i);
-                    
+
                     // show tooltip
                     if (o.tooltips) {
                         //$('.ui-slider-tooltip', this).text(o.tooltips[self.values(i)]);
@@ -686,7 +686,7 @@
                             if (o.type == 'number')
                                 text += ' '+$(this).attr('data-value')+' - '+allHandles.eq(i+1).attr('data-value');
                             else if (o.type == 'time')
-                                text += ' '+self._getTimeStringFromMinutes($(this).attr('data-value'))+' - '+self._getTimeStringFromMinutes(allHandles.eq(i+1).attr('data-value'));
+                                text += ' '+self._getTimeStringFromMinutes($(this).attr('data-value'));
                         }
                         // if last show range from previous
                         else {
@@ -696,7 +696,7 @@
                             if (o.type == 'number')
                                 text += ' '+$(this).attr('data-value')+' - '+o.max;
                             if (o.type == 'time')
-                                text += ' '+self._getTimeStringFromMinutes($(this).attr('data-value')) + ' - 0:00';
+                                text += ' '+self._getTimeStringFromMinutes($(this).attr('data-value'));
                         }
                         $('.ui-slider-tooltip', this).text(text);
                     //$('.ui-slider-tooltip', this).text(self._getTimeStringFromFloat(allHandles.eq(i-1).attr('data-value'))+' - '+self._getTimeStringFromFloat($(this).attr('data-value')));
@@ -709,7 +709,7 @@
                          */
                     }
                 });
-                
+
                 // get all range elements
                 var ranges = $('.ui-slider-range', this.element);
                 // go through all ranges
@@ -728,12 +728,12 @@
                     // set style by orientation
                     if (self.orientation == 'horizontal') {
                         $(this).css({
-                            left: valPercent + '%', 
+                            left: valPercent + '%',
                             width: rangePercent + '%'
                         });
                     } else {
                         $(this).css({
-                            bottom: valPercent + '%', 
+                            bottom: valPercent + '%',
                             height: rangePercent + '%'
                         });
                     }
@@ -741,8 +741,8 @@
                     $(this).removeClass('minimum');
                     $(this).removeClass('saving');
                     $(this).removeClass('comfort');
-                    $(this).addClass($('.ui-slider-handle:eq('+i+')', self.element).attr('data-temperature'));    */                
-                    
+                    $(this).addClass($('.ui-slider-handle:eq('+i+')', self.element).attr('data-temperature'));    */
+
                 });
             } else {
                 var value = this.value(),
@@ -751,7 +751,7 @@
                 valPercent = valueMax != valueMin
                 ? (value - valueMin) / (valueMax - valueMin) * 100
                 : 0;
-                var _set = {};                
+                var _set = {};
                 _set[self.orientation == 'horizontal' ? 'left' : 'bottom'] = valPercent + '%';
                 this.handle.stop(1,1)[animate ? 'animate' : 'css'](_set, o.animate).find('.ui-slider-tooltip').text(o.tooltips ? o.tooltips[self.value()] : '');
 
@@ -761,7 +761,7 @@
                 (oRange == 'max') && (this.orientation == 'horizontal') && this.range[animate ? 'animate' : 'css']({
                     width: (100 - valPercent) + '%'
                 }, {
-                    queue: false, 
+                    queue: false,
                     duration: o.animate
                 });
                 (oRange == 'min') && (this.orientation == 'vertical') && this.range.stop(1,1)[animate ? 'animate' : 'css']({
@@ -770,10 +770,10 @@
                 (oRange == 'max') && (this.orientation == 'vertical') && this.range[animate ? 'animate' : 'css']({
                     height: (100 - valPercent) + '%'
                 }, {
-                    queue: false, 
+                    queue: false,
                     duration: o.animate
                 });
             }
-        } 
+        }
     });
 })(jQuery);
