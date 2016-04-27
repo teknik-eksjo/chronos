@@ -15,10 +15,14 @@ function filterTeachers(query) {
   teachers.each(function() {
     var firstName = this.children[0].innerText.toLowerCase()
     var lastName = this.children[1].innerText.toLowerCase()
+    var fullName = firstName + ' ' + lastName
     var email = this.children[2].innerText.toLowerCase()
 
     // Only show relevant teachers in UI
-    if (contains(firstName, query) || contains(lastName, query) || contains(email, query)) {
+    if (contains(firstName, query) ||
+        contains(lastName, query) ||
+        contains(email, query) ||
+        contains(fullName, query)) {
       $(this).show()
     } else {
       $(this).hide()
