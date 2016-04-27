@@ -237,7 +237,7 @@ class Workday(db.Model):
     lunch_start = db.Column(db.Time)
     lunch_end = db.Column(db.Time)
     end = db.Column(db.Time)
-    base_schedule_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    base_schedule_id = db.Column(db.Integer, db.ForeignKey('base_schedules.id'))
 
     def __init__(self):
         pass
