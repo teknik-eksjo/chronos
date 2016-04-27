@@ -10,6 +10,7 @@ from flask.ext.login import login_required
 def index():
     return render_template('main/index.html')
 
+
 @main.route('/base-schedule', methods=['GET', 'POST'])
 @login_required
 def base_schedule():
