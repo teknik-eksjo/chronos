@@ -14,7 +14,7 @@ from . import admin
 from .. import db
 from ..decorators import admin_required, permission_required
 from .forms import AddTeacherForm, ExcelUploadForm, EditTeacherForm
-from ..models import User
+from ..models import User, WorkPeriod
 from sqlalchemy import desc
 
 
@@ -78,3 +78,42 @@ def upload_teachers():
         pass
 
     return render_template('admin/upload.html', form=form)
+
+
+@admin.route('/work-periods/', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def work_periods():
+    work_periods = WorkPeriod.query.order_by(WorkPeriod.start)
+    # TODO - fix date-datatype and populate db
+    return render_template('admin/work_periods.html', work_periods=work_periods)
+
+
+@admin.route('/work_periods/add', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_work_period():
+    form = AddWorkPeriodForm()
+
+    if form.validate_on_submit():
+        work_period = WorkPeriod(start=form.start.data, end=form.end.data)
+        db.session.add(work_period)
+        db.session.commit()
+        return redirect(url_for('admin.work_periods'))
+
+    return render_template('admin/add.html', form=form)
+
+
+@admin.route('/work-periods/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_work_period(id):
+    work_period = WorkPeriod.query.filter_by(id=id).first()
+    form = EditWorkPeriodForm(obj=work_period)
+
+    if form.validate_on_submit():
+        form.populate_obj(work_period)
+        db.session.commit()
+        return redirect(url_for('admin.work_periods'))
+
+    return render_template('admin/work_periods.html', form=form)

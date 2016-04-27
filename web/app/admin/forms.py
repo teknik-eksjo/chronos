@@ -35,3 +35,10 @@ class EditTeacherForm(Form):
 
 class ExcelUploadForm(Form):
     upload = FileField('Excel-dokument', validators=[FileRequired(), FileAllowed(['xlsx'])])
+
+
+class AddWorkPeriodForm(Form):
+    pass
+
+class EditWorkPeriodForm(Form):
+    pass
