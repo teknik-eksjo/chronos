@@ -8,5 +8,6 @@ before_script:
   - cd web
 script:
   - ./manage.py lint
+  - ./manage.py test
 notifications:
   - email: false
