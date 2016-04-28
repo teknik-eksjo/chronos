@@ -120,5 +120,47 @@ def deploy():
     Role.insert_roles()
 
 
+@manager.command
+def seed():
+    """Resets and creats new db, then fills the db with data to aid manual testing & debugging."""
+    from app.models import User
+    from datetime import datetime, timedelta
+    from random import randint
+    from flask_migrate import upgrade
+    from app.models import Role
+
+    db.drop_all()
+    db.create_all()
+    upgrade()
+    Role.insert_roles()
+    admin = User(first_name=os.environ.get('CHRONOS_ADMIN_FIRST_NAME'),
+                 last_name=os.environ.get('CHRONOS_ADMIN_LAST_NAME'),
+                 email=os.environ.get('CHRONOS_ADMIN'),
+                 password=os.environ.get('CHRONOS_ADMIN_PASSWORD'))
+    
+
+    first_names = ['Carl', 'Daniel', 'Gustav', 'Britt', 'Marie', 'Ulla-Carin']
+    last_names = ['Svensson', 'Itzler', 'Wilde', 'Birgersson', 'Stjärnberg', 'Johansson' ]
+    emails = ['carl@banan.se', 'daniel.itzler@hotmail.nu', 'gustavwilde@live.se', 'britt_brigersson68@google.se', 'Marie1789@mex.nu', 'ullacarin45@hej.se']
+
+    def generate_last_seen_date():
+        """Generate a 'last_seen'-date."""
+        td = timedelta(days=randint(30, 90), hours=randint(1, 24), minutes=randint(1, 59))
+        start_date = datetime.now()
+
+        return start_date - td
+    
+    for i in range(len(first_names)):
+        first_name = first_names[i]
+        last_name = last_names[i]
+        email = emails[i]
+        last_seen = generate_last_seen_date()
+
+        user = User(first_name=first_name, last_name=last_name, email=email, last_seen=last_seen)
+        db.session.add(user)
+
+    db.session.commit()
+
+    
 if __name__ == "__main__":
     manager.run()
