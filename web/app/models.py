@@ -162,6 +162,12 @@ class User(UserMixin, db.Model):
         db.session.add(self)
 
     def generate_auth_token(self, expiration):
+        """Return an auth token.
+
+        Args:
+            expiration:
+                integer (seconds) before token expires
+        """
         s = Serializer(current_app.config['SECRET_KEY'],
                        expires_in=expiration)
         return s.dumps({'id': self.id}).decode('ascii')
