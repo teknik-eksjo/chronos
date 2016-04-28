@@ -2,10 +2,14 @@ language: python
 python:
   - "3.4"
   - "3.5"
+services:
+  - postgresql
 install:
   - pip install -r web/requirements.txt
 before_script:
+  - psql -c 'CREATE DATABASE travis_ci_test;' -U postgres
   - cd web
+  - ./manage.py deploy
 script:
   - ./manage.py lint
   - ./manage.py test
