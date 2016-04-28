@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms.validators import Required, Length, Email, EqualTo, Regexp
 from wtforms import ValidationError
+from wtforms.fields.html5 import DateField
 from ..models import User
 import re
 
@@ -38,7 +39,12 @@ class ExcelUploadForm(Form):
 
 
 class AddWorkPeriodForm(Form):
-    pass
+    start = DateField('Startdatum', format='%Y-%m-%d', validators=[Required()])
+    end = DateField('Slutdatum', format='%Y-%m-%d', validators=[Required()])
+    submit = SubmitField('Spara')
+
 
 class EditWorkPeriodForm(Form):
-    pass
+    start = DateField('Startdatum', format='%Y-%m-%d', validators=[Required()])
+    end = DateField('Slutdatum', format='%Y-%m-%d', validators=[Required()])
+    submit = SubmitField('Spara')

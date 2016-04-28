@@ -6,7 +6,8 @@
     <div class="col-md-12">
       <h1>Arbetsperioder</h1>
       <a href="{{ url_for('admin.add_work_period') }}" class="btn btn-primary">Lägg till arbetsperiod</a>
-
+      <br>
+      <br>
       <div class="input-group input-group">
         <input type="text" id="search" class="form-control" placeholder="Sök">
       </div>
@@ -22,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for work_period in work-periods %}
+          {% for work_period in work_periods %}
             <tr class="teacher">
               <td class="first-name">{{ work_period.start }}</td>
               <td class="last-name">{{ work_period.end }}</td>

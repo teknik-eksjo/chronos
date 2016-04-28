@@ -13,7 +13,11 @@ from flask.ext.login import (login_user,
 from . import admin
 from .. import db
 from ..decorators import admin_required, permission_required
-from .forms import AddTeacherForm, ExcelUploadForm, EditTeacherForm
+from .forms import (AddTeacherForm,
+                    ExcelUploadForm,
+                    EditTeacherForm,
+                    AddWorkPeriodForm,
+                    EditWorkPeriodForm)
 from ..models import User, WorkPeriod
 from sqlalchemy import desc
 
@@ -50,7 +54,7 @@ def add_teacher():
         db.session.commit()
         return redirect(url_for('admin.teachers'))
 
-    return render_template('admin/add.html', form=form)
+    return render_template('admin/add.html', form=form, form_name='lärare')
 
 
 @admin.route('/teachers/edit/<int:id>', methods=['GET', 'POST'])
@@ -65,7 +69,7 @@ def edit_teacher(id):
         db.session.commit()
         return redirect(url_for('admin.teachers'))
 
-    return render_template('admin/edit_teacher.html', form=form)
+    return render_template('admin/edit.html', form=form, form_name='lärare')
 
 
 @admin.route('/teachers/upload', methods=['GET', 'POST'])
@@ -84,12 +88,12 @@ def upload_teachers():
 @login_required
 @admin_required
 def work_periods():
-    work_periods = WorkPeriod.query.order_by(WorkPeriod.start)
+    work_periods = WorkPeriod.query.order_by(desc(WorkPeriod.start))
     # TODO - fix date-datatype and populate db
     return render_template('admin/work_periods.html', work_periods=work_periods)
 
 
-@admin.route('/work_periods/add', methods=['GET', 'POST'])
+@admin.route('/work-periods/add', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def add_work_period():
@@ -101,7 +105,7 @@ def add_work_period():
         db.session.commit()
         return redirect(url_for('admin.work_periods'))
 
-    return render_template('admin/add.html', form=form)
+    return render_template('admin/add.html', form=form, form_name='arbetsperiod')
 
 
 @admin.route('/work-periods/edit/<int:id>', methods=['GET', 'POST'])
@@ -116,4 +120,4 @@ def edit_work_period(id):
         db.session.commit()
         return redirect(url_for('admin.work_periods'))
 
-    return render_template('admin/work_periods.html', form=form)
+    return render_template('admin/edit.html', form=form, form_name='arbetsperiod')
