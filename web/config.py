@@ -13,7 +13,7 @@ class Config:
     CHRONOS_MAIL_SENDER = 'Chronos Team <chronos.dev.mail@gmail.com>'
     CHRONOS_MAIL_SUBJECT_PREFIX = '[Chronos]'
 
-    MAIL_SERVER = 'smtp.sendgrid.net'    
+    MAIL_SERVER = 'smtp.sendgrid.net'
     MAIL_USE_TLS = True
     MAIL_PORT = 587
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
@@ -27,13 +27,13 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'postgresql+psycopg2://postgres:secretpassword@localhost/postgres'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') or 'postgresql+psycopg2://postgres:secretpassword@localhost/development'
 
 
 class TestingConfig(Config):
     TESTING = True
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'postgresql+psycopg2://postgres:secretpassword@localhost/postgres'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or 'postgresql+psycopg2://postgres:secretpassword@localhost/testing'
 
     WTF_CSRF_ENABLED = False
 
