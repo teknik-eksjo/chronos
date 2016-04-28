@@ -2,62 +2,60 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block styles %}
-{{ super() }}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css">
-<link href="{{ url_for('static', filename='css/slider-style.sass.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ url_for('static', filename='css/style.sass.css') }}" rel="stylesheet" type="text/css">
+  {{ super() }}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='css/slider-style.sass.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='css/style.sass.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block page_content %}
-<div class="page-header">
+  <div class="page-header">
     <h1>Skapa ett basschema</h1>
-</div>
-<div class="container">
-  <br>
-  <div class="row">
-    <p class="col-md-1 col-xs-12">Måndag:</p>
-    <div class="col-md-11 col-xs-12">
-      <div class="slider sleep period-slider"></div>
+  </div>
+  <div class="container">
+    <br>
+    <div class="row">
+      <p class="col-md-1 col-xs-12">Måndag:</p>
+      <div class="col-md-11 col-xs-12">
+        <div class="slider sleep period-slider"></div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <p class="col-md-1 col-xs-12">Tisdag:</p>
-    <div class="col-md-11 col-xs-12">
-      <div class="slider sleep period-slider"></div>
+    <div class="row">
+      <p class="col-md-1 col-xs-12">Tisdag:</p>
+      <div class="col-md-11 col-xs-12">
+        <div class="slider sleep period-slider"></div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <p class="col-md-1 col-xs-12">Onsdag:</p>
-    <div class="col-md-11 col-xs-12">
-      <div class="slider sleep period-slider"></div>
+    <div class="row">
+      <p class="col-md-1 col-xs-12">Onsdag:</p>
+      <div class="col-md-11 col-xs-12">
+        <div class="slider sleep period-slider"></div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <p class="col-md-1 col-xs-12">Torsdag:</p>
-    <div class="col-md-11 col-xs-12">
-      <div class="slider sleep period-slider"></div>
+    <div class="row">
+      <p class="col-md-1 col-xs-12">Torsdag:</p>
+      <div class="col-md-11 col-xs-12">
+        <div class="slider sleep period-slider"></div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <p class="col-md-1 col-xs-12">Fredag:</p>
-    <div class="col-md-11 col-xs-12">
-      <div class="slider sleep period-slider"></div>
+    <div class="row">
+      <p class="col-md-1 col-xs-12">Fredag:</p>
+      <div class="col-md-11 col-xs-12">
+        <div class="slider sleep period-slider"></div>
+      </div>
     </div>
+    <br>
+    <div class="row">
+      <button type="button" class="btn btn-default">Tillbaka</button>
+      <button type="button" class="btn btn-default pull-right">Vidare</button>
+    </div>
+    <br>
   </div>
-  <br>
-  <div class="row">
-    <button type="button" class="btn btn-default">Tillbaka</button>
-    <button type="button" class="btn btn-default pull-right">Vidare</button>
-  </div>
-  <br>
-</div>
-
-
 {% endblock %}
 
 {% block scripts %}
-{{ super() }}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js" ></script>
-<script src="{{ url_for('static', filename='js/slider.js') }}"></script>
-<script src="{{ url_for('static', filename='js/create-slider.js') }}"></script>
+  {{ super() }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js" ></script>
+  <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/create-slider.js') }}"></script>
 {% endblock %}

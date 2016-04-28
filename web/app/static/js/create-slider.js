@@ -1,23 +1,22 @@
-$(function() {
-
+$(function () {
   // create slider with an options object that will override the defaut config.
-  options = {
+  var options = {
     min: 360,
     max: 1080,
     step: 5,
     tooltips: true,
     handles: [{
       value: 480,
-      type: "wake"
+      type: 'wake'
     }, {
       value: 690,
-      type: "leave"
+      type: 'leave'
     }, {
       value: 750,
-      type: "return"
+      type: 'return'
     }, {
       value: 960,
-      type: "sleep"
+      type: 'sleep'
     }],
     showTypeNames: true,
     typeNames: {
@@ -28,10 +27,7 @@ $(function() {
     },
     mainClass: 'sleep',   // Main css class (default background style of slider)
     type: 'time',
-    slide: function(e, ui) {
-
-      var index = ui.values.indexOf(ui.value)
-
+    slide: function (e, ui) {
       // Work persiods no longer than 5h
       if (ui.values[1] - ui.values[0] > 300) {
         $(jQuery(this).children('.ui-slider-range.wake')).addClass('errorbg')
@@ -53,10 +49,10 @@ $(function() {
         $(jQuery(this).children('.ui-slider-range.return')).removeClass('errorbg')
       }
     },
-    change: function(e, ui) {
+    change: function (e, ui) {
       //TODO: send updated info to server here.
     }
   }
 
-  $('.period-slider').slider(options);
-});
+  $('.period-slider').slider(options)
+})
