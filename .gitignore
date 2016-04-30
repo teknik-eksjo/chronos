@@ -20,4 +20,6 @@ venv/
 __pycache__
 .cache
 .env
+.coverage
 web/app/static/css/
+tmp/

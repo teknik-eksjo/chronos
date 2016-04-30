@@ -59,18 +59,19 @@ def test(coverage, html, report, gui):
         COV.stop()
         COV.save()
 
-        if not html:
+        if html:
             # Generate HTML report and move to tmp directory.
             import os
             basedir = os.path.abspath(os.path.dirname(__file__))
             covdir = os.path.join(basedir, 'tmp/coverage')
             COV.html_report(directory=covdir)
 
-        if not report:
+        if report:
             # Show the report and clean up.
             print('\nCoverage Summary\n{}'.format('=' * 70))
             COV.report()
-            COV.erase()
+
+        COV.erase()
 
     raise SystemExit(exit_code)
 
