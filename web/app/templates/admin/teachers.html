@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block styles %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/style.sass.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block page_content %}
   <div class="row">
     <div class="col-md-12">
@@ -25,16 +30,16 @@
           </tr>
         </thead>
         <tbody>
-          {% for teacher in teachers %}
-            <tr class="teacher">
-              <td class="first-name">{{ teacher.first_name }}</td>
-              <td class="last-name">{{ teacher.last_name }}</td>
-              <td>{{ teacher.email }}</td>
-              <td>{{ teacher.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-              <td><a href="{{ url_for('admin.edit_teacher', id=teacher.id) }}" class="btn btn-primary">Redigera</a></td>
-              <td><a href="#" class="btn btn-danger">Ta bort</a></td>
-            </tr>
-          {% endfor %}
+        {% for teacher in teachers %}
+        <tr class="teacher">
+                <td class="first-name">{{ teacher.first_name }}</td>
+                <td class="last-name">{{ teacher.last_name }}</td>
+                <td>{{ teacher.email }}</td>
+                <td>{{ teacher.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td><a href="{{ url_for('admin.edit_teacher', id=teacher.id) }}" class="btn btn-primary">Redigera</a></td>
+                <td><a href="#" class="btn btn-danger confirm-delete" data-userId="{{ teacher.id }}" data-firstname="{{ teacher.first_name }}" data-lastname="{{ teacher.last_name }}">Ta bort</a></td>
+        </tr>
+        {% endfor %}
         </tbody>
       </table>
     </div>
@@ -42,6 +47,9 @@
 {% endblock %}
 
 {% block scripts %}
-  {{ super() }}
-  <script src="{{ url_for('static', filename='js/admin-search.js') }}"></script>
+    {{ super() }}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin-search.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/delete-teacher.js') }}"></script>
 {% endblock %}

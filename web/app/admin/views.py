@@ -3,7 +3,9 @@ from flask import (current_app,
                    redirect,
                    render_template,
                    request,
-                   url_for)
+                   url_for,
+                   jsonify,
+                   abort)
 
 from flask.ext.login import (login_user,
                              logout_user,
@@ -34,11 +36,11 @@ def index():
     return render_template('admin/admin.html')
 
 
-@admin.route('/teachers', methods=['GET', 'POST'])
+@admin.route('/teachers')
 @login_required
 @admin_required
 def teachers():
-    teachers = User.query.filter_by(password_hash=None).order_by(User.first_name)
+    teachers = User.query.filter_by(password_hash=None, is_active=True).order_by(User.first_name)
     return render_template('admin/teachers.html', teachers=teachers)
 
 
@@ -55,6 +57,23 @@ def add_teacher():
         return redirect(url_for('admin.teachers'))
 
     return render_template('admin/add.html', form=form, form_name='lärare')
+
+
+@admin.route('/teachers/remove', methods=['POST'])
+@login_required
+@admin_required
+def remove_teacher():
+    data = request.get_json()
+    id = data['user']
+    user = User.query.filter_by(id=id).first()
+
+    if user:
+        user.is_active = False
+        db.session.commit()
+    else:
+        abort(400)
+
+    return ''
 
 
 @admin.route('/teachers/edit/<int:id>', methods=['GET', 'POST'])

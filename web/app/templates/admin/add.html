@@ -12,3 +12,8 @@
     {{ wtf.quick_form(form) }}
   </div>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/prevent-leave.js') }}"></script>
+{% endblock %}
