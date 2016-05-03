@@ -11,8 +11,8 @@ from app import mail
 def test_password_reset_email(client):
     # response = client.get(url_for('auth.password_reset_request'))
     with mail.record_messages() as outbox:
-        response = client.post(url_for('auth.password_reset_request'), data=dict(
-            email='hugo@hugolundin.se'))
+        response = client.post(url_for('auth.password_reset_request'),
+                               data=dict(email='hugo@hugolundin.se'))
         # assert response.status_code == 200
         assert len(outbox) == 1
         assert outbox[0].subject == '[Chronos] Reset password'
@@ -20,12 +20,15 @@ def test_password_reset_email(client):
 
         token = re.search(r'reset\/(.*)"', outbox[0].html).group(1)
 
-        response = client.post(url_for('auth.password_reset', token=token), data=dict(
-            email='hugo@hugolundin.se', password='1q2w3e4r', password2='1q2w3e4r'))
+        response = client.post(url_for('auth.password_reset', token=token),
+                               data=dict(email='hugo@hugolundin.se',
+                               password='1q2w3e4r', password2='1q2w3e4r'))
         assert response.status_code == 302
 
-        response = client.post(url_for('auth.login'), data=dict(
-            email='hugo@hugolundin.se', password='1q2w3e4r'), follow_redirects=True)
+        response = client.post(url_for('auth.login'),
+                               data=dict(email='hugo@hugolundin.se',
+                               password='1q2w3e4r'),
+                               follow_redirects=True)
         assert response.status_code == 200
 
 
@@ -46,7 +49,8 @@ class TestLiveServer():
         elem = selenium.find_element_by_name('email')
         elem.send_keys('hugo@hugolundin.se')
         elem.send_keys(Keys.RETURN)
-        assert 'Ett mail med instruktioner för att återställa ditt lösenord har blivit skickat till dig.' in selenium.page_source
+        assert ('Ett mail med instruktioner för att återställa ditt lösenord har blivit skickat till dig.' in
+                selenium.page_source)
 
     def test_login(self, selenium):
         selenium.get(url_for('auth.login', _external=True))
