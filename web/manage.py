@@ -130,6 +130,10 @@ def seed():
     from app.models import Role
 
     db.drop_all()
+    try:
+        db.engine.execute('DROP TABLE alembic_version;')  # Dirty fix!
+    except:
+        pass
     upgrade()
     Role.insert_roles()
     admin = User(first_name=os.environ.get('CHRONOS_ADMIN_FIRST_NAME'),
