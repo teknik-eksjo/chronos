@@ -50,7 +50,7 @@ $(function () {
       }
     },
     change: function (e, ui) {
-      //TODO: send updated info to server here.
+      console.log($(this).slider('option', 'day'), ui.values)
     }
   }
 
