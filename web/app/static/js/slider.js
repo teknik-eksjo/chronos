@@ -7,6 +7,7 @@
     version: '@VERSION',
     eventPrefix: 'slide',
     options: {
+      day: null,
       animate: false,
       delay: 0,
       distance: 0,
@@ -57,6 +58,8 @@
 
     _init: function () {
       var o = this.options
+      // Get the day attrubute from the element
+      o.day = $(this.element).attr('day')
       this._keySliding = false
       this._handleIndex = null
       this._detectOrientation()
