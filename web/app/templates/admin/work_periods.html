@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Arbetsperioder</h1>
+      <a href="{{ url_for('admin.add_work_period') }}" class="btn btn-primary">Lägg till arbetsperiod</a>
+      <br>
+      <br>
+      <div class="input-group input-group">
+        <input type="text" id="search" class="form-control" placeholder="Sök">
+      </div>
+
+      <br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Startdatum</th>
+            <th>Slutdatum</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for work_period in work_periods %}
+            <tr class="teacher">
+              <td class="first-name">{{ work_period.start }}</td>
+              <td class="last-name">{{ work_period.end }}</td>
+              <td><a href="{{ url_for('admin.edit_work_period', id=work_period.id) }}" class="btn btn-primary">Redigera</a></td>
+              <td><a href="#" class="btn btn-danger">Ta bort</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/admin-search.js') }}"></script>
+{% endblock %}

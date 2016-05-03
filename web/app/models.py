@@ -214,7 +214,7 @@ class Deviation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date)
     start = db.Column(db.Time)
-    lund_start = db.Column(db.Time)
+    lunch_start = db.Column(db.Time)
     lunch_end = db.Column(db.Time)
     end = db.Column(db.Time)
     schedule_id = db.Column(db.Integer, db.ForeignKey("schedules.id"))
@@ -257,8 +257,9 @@ class WorkPeriod(db.Model):
     end = db.Column(db.Date)
     schedules = db.relationship('Schedule', backref='work_period', lazy='dynamic')
 
-    def __init__(self):
-        pass
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
 
 
 # Sets login_managers anonymous_user to AnonymousUser-class.
