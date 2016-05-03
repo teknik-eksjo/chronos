@@ -64,14 +64,16 @@ def add_teacher():
 @admin_required
 def remove_teacher():
     data = request.get_json()
-    id = data['user']
-    user = User.query.filter_by(id=id).first()
 
-    if user:
-        user.is_active = False
-        db.session.commit()
-    else:
-        abort(400)
+    if data:
+        id = data['user']
+        user = User.query.filter_by(id=id).first()
+
+        if user:
+            user.is_active = False
+            db.session.commit()
+        else:
+            abort(400)
 
     return ''
 
