@@ -52,7 +52,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('date', sa.Date(), nullable=True),
     sa.Column('start', sa.Time(), nullable=True),
-    sa.Column('lund_start', sa.Time(), nullable=True),
+    sa.Column('lunch_start', sa.Time(), nullable=True),
     sa.Column('lunch_end', sa.Time(), nullable=True),
     sa.Column('end', sa.Time(), nullable=True),
     sa.Column('schedule_id', sa.Integer(), nullable=True),

@@ -29,4 +29,7 @@
   {{ super() }}
   {{ moment.include_moment() }}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var $SCRIPT_ROOT = {{ url_for('main.index', _external = True)|tojson|safe }}
+  </script>
 {% endblock %}
