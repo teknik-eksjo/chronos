@@ -50,7 +50,12 @@ $(function () {
       }
     },
     change: function (e, ui) {
-      console.log($(this).slider('option', 'day'), ui.values)
+      var data = { 'index' : $(this).slider('option', 'index'), 'values' : ui.values }
+      var url = window.location.href
+
+      $.post({ url: url, data: JSON.stringify(data), contentType: 'application/json',
+          success: function () { console.log('Data sent!') }
+      })
     }
   }
 
