@@ -1,8 +1,8 @@
 $(document).on('click', '.confirm-delete', function () {
-    'use strict';
-    var firstName = this.dataset.firstname;
-    var lastName = this.dataset.lastname;
-    var userId = this.dataset.userid;
+    'use strict'
+    var firstName = this.dataset.firstname
+    var lastName = this.dataset.lastname
+    var userId = this.dataset.userid
 
     bootbox.dialog({
         'message': 'Vill du verkligen ta bort ' + firstName + ' ' + lastName + '?',
@@ -28,5 +28,5 @@ $(document).on('click', '.confirm-delete', function () {
                 'className': 'btn-danger fixed-width-button'
             }
         }
-    });
-});
+    })
+})
