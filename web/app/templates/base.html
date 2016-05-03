@@ -1,4 +1,10 @@
 {% extends "bootstrap/base.html" %}
+{% block head %}
+<meta charset="UTF-8" />
+<meta name="google" content="notranslate" />
+<meta http-equiv="Content-Language" content="sv_SE" />
+{{ super() }}
+{% endblock %}
 {% block styles%}
   {{ super() }}
   <link href="{{ url_for('static', filename='css/chronos-bootstrap.sass.css') }}" rel="stylesheet" type="text/css">
