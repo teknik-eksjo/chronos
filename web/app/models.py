@@ -7,7 +7,7 @@ from werkzeug.security import(generate_password_hash,
 
 from . import db, login_manager
 from app.exceptions import ValidationError
-from datetime import datetime
+from datetime import datetime, time
 from flask.ext.login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import hashlib
@@ -199,14 +199,11 @@ class Schedule(db.Model):
     """Database model for schedules."""
     __tablename__ = 'schedules'
     id = db.Column(db.Integer, primary_key=True)
-    approved = db.Column(db.Boolean)
+    approved = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     work_period_id = db.Column(db.Integer, db.ForeignKey("work_periods.id"))
     deviations = db.relationship('Deviation', backref='schedule', lazy='dynamic')
     base_schedule = db.relationship('BaseSchedule', backref='schedule', lazy='dynamic')
-
-    def __init__(self):
-        pass
 
 
 class Deviation(db.Model):
@@ -220,9 +217,6 @@ class Deviation(db.Model):
     end = db.Column(db.Time)
     schedule_id = db.Column(db.Integer, db.ForeignKey("schedules.id"))
 
-    def __init__(self):
-        pass
-
 
 class BaseSchedule(db.Model):
     """Database model for base_schedules."""
@@ -230,9 +224,6 @@ class BaseSchedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     schedule_id = db.Column(db.Integer, db.ForeignKey("schedules.id"))
     workdays = db.relationship('Workday', backref='base_schedule', lazy='dynamic')
-
-    def __init__(self):
-        pass
 
 
 class Workday(db.Model):
@@ -246,9 +237,6 @@ class Workday(db.Model):
     end = db.Column(db.Time)
     base_schedule_id = db.Column(db.Integer, db.ForeignKey('base_schedules.id'))
 
-    def __init__(self):
-        pass
-
 
 class WorkPeriod(db.Model):
     """Database model for work_periods."""
@@ -257,10 +245,6 @@ class WorkPeriod(db.Model):
     start = db.Column(db.Date)
     end = db.Column(db.Date)
     schedules = db.relationship('Schedule', backref='work_period', lazy='dynamic')
-
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
 
 
 # Sets login_managers anonymous_user to AnonymousUser-class.
