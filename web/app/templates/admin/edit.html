@@ -6,7 +6,7 @@
 {% block page_content %}
 <div class="page-header">
     <h1>Redigera {{ form_name }}</h1>
-    <a href="{{ url_for('admin.teachers') }}">Tillbaka</a>
+    <a href="{{ previous_page_url }}">Tillbaka</a>
   </div>
   <div class="col-md-4">
     {{ wtf.quick_form(form) }}

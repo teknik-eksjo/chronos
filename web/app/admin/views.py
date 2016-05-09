@@ -56,7 +56,10 @@ def add_teacher():
         db.session.commit()
         return redirect(url_for('admin.teachers'))
 
-    return render_template('admin/add.html', form=form, form_name='lärare')
+    return render_template('admin/add.html',
+                           form=form,
+                           form_name='lärare',
+                           previous_page_url=url_for('admin.teachers'))
 
 
 @admin.route('/teachers/remove', methods=['POST'])
@@ -92,7 +95,10 @@ def edit_teacher(id):
             db.session.commit()
             return redirect(url_for('admin.teachers'))
 
-        return render_template('admin/edit.html', form=form, form_name='lärare')
+        return render_template('admin/edit.html',
+                               form=form,
+                               form_name='lärare',
+                               previous_page_url=url_for('admin.teachers'))
 
     else:
         abort(400)
@@ -131,7 +137,10 @@ def add_work_period():
         db.session.commit()
         return redirect(url_for('admin.work_periods'))
 
-    return render_template('admin/add.html', form=form, form_name='arbetsperiod')
+    return render_template('admin/add.html',
+                           form=form,
+                           form_name='arbetsperiod',
+                           previous_page_url=url_for('admin.work_periods'))
 
 
 @admin.route('/work-periods/edit/<int:id>', methods=['GET', 'POST'])
@@ -148,7 +157,10 @@ def edit_work_period(id):
             db.session.commit()
             return redirect(url_for('admin.work_periods'))
 
-        return render_template('admin/edit.html', form=form, form_name='arbetsperiod')
+        return render_template('admin/edit.html',
+                               form=form,
+                               form_name='arbetsperiod',
+                               previous_page_url=url_for('admin.work_periods'))
 
     else:
         abort(400)
