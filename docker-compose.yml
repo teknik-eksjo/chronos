@@ -1,8 +1,35 @@
-postgresql:
-  restart: always
-  build: ./postgres
-  ports:
-    - "5432:5432"
-  environment:
-    - POSTGRES_PASSWORD=secretpassword
-    - POSTGRES_USER=postgres
+version: '2'
+services:
+  postgresql:
+    restart: always
+    build: ./postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=secretpassword
+      - POSTGRES_USER=postgres
+
+  redis:
+    restart: always
+    image: redis
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    restart: always
+    image: rabbitmq:3
+    ports:
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitmq
+      - RABBITMQ_DEFAULT_PASS=secretpassword
+
+  worker:
+    build: ./web
+    links:
+      - postgresql
+      - rabbitmq
+      - redis
+    volumes:
+      - /usr/src/app/static
+    command: celery -A app.celery worker
