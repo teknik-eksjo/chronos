@@ -49,7 +49,7 @@
 {% block scripts %}
     {{ super() }}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="{{ url_for('static', filename='js/bootbox.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin-search.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/delete-teacher.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/bootbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/search.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/delete-teacher.js') }}"></script>
 {% endblock %}
