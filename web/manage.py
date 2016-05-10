@@ -123,11 +123,21 @@ def deploy():
 @manager.command
 def seed():
     """Resets and creats new db, then fills the db with data to aid manual testing & debugging."""
-    from app.models import User
-    from datetime import datetime, timedelta
+    from datetime import datetime, timedelta, time
     from random import randint
     from flask_migrate import upgrade
-    from app.models import Role
+    from app.models import (User,
+                            Role,
+                            WorkPeriod,
+                            Schedule,
+                            BaseSchedule,
+                            Deviation,
+                            Workday)
+
+    NUMBER_OF_WORK_PERIODS = 2
+    WORK_PERIOD_LENGTH = 90
+    DEVIATIONS_PER_SCHEDULE = 3
+    WORKDAYS_PER_BASE_SCHEDULE = 5
 
     db.drop_all()
     try:
@@ -136,32 +146,100 @@ def seed():
         pass
     upgrade()
     Role.insert_roles()
-    admin = User(first_name=os.environ.get('CHRONOS_ADMIN_FIRST_NAME'),
-                 last_name=os.environ.get('CHRONOS_ADMIN_LAST_NAME'),
-                 email=os.environ.get('CHRONOS_ADMIN'),
-                 password=os.environ.get('CHRONOS_ADMIN_PASSWORD'))
 
+    def insert_work_periods(n, length):
+        """Insert n subsequent work_periods.
 
-    first_names = ['Carl', 'Daniel', 'Gustav', 'Britt', 'Marie', 'Ulla-Carin']
-    last_names = ['Svensson', 'Itzler', 'Wilde', 'Birgersson', 'Stjärnberg', 'Johansson' ]
-    emails = ['carl@banan.se', 'daniel.itzler@hotmail.nu', 'gustavwilde@live.se', 'britt_brigersson68@google.se', 'Marie1789@mex.nu', 'ullacarin45@hej.se']
+        Params:
+            n - Number of work_periods to insert
+            length - Length of work_period (days)
+        """
+        for i in range(1, n + 1):
+            start_date = datetime.now() - timedelta(days=i * length)
+            end_date = datetime.now() - timedelta(days=(i - 1) * length)
 
-    def generate_last_seen_date():
-        """Generate a 'last_seen'-date."""
-        td = timedelta(days=randint(30, 90), hours=randint(1, 24), minutes=randint(1, 59))
-        start_date = datetime.now()
+            db.session.add(WorkPeriod(start=start_date, end=end_date))
 
-        return start_date - td
+    def insert_schedules(user_id):
+        """Insert a schedule per work_period for a specic user.
 
-    for i in range(len(first_names)):
-        first_name = first_names[i]
-        last_name = last_names[i]
-        email = emails[i]
-        last_seen = generate_last_seen_date()
+        Each schedule contains:
+            1 * base_schedule
+            DEVIATIONS_PER_SCHEDULE * deviations
 
-        user = User(first_name=first_name, last_name=last_name, email=email, last_seen=last_seen)
-        db.session.add(user)
+        Params:
+            user_id - id of the target user
+        """
+        def generate_work_day(index, base_schedule_id):
+            """Generate a work_day for a specific base_schedule."""
+            db.session.add(Workday(index=index,
+                                   base_schedule_id=base_schedule_id,
+                                   start=time(hour=8),
+                                   lunch_start=time(hour=11, minute=30),
+                                   lunch_end=time(hour=12, minute=30),
+                                   end=time(hour=16)))
 
+        def generate_base_schedule(schedule_id):
+            """Generate a base_schedule for a specific schedule."""
+            db.session.add(BaseSchedule(schedule_id=schedule_id))
+
+            base_schedule = BaseSchedule.query.filter_by(schedule_id=schedule_id).first()
+            # Add work_days to the recently created base_schedule
+            for index in range(WORKDAYS_PER_BASE_SCHEDULE):
+                generate_work_day(index, base_schedule.id)
+
+        def generate_deviation(schedule_id):
+            """Generate a deviation for a specific schedule."""
+            date = work_period.end - timedelta(days=randint(1, WORK_PERIOD_LENGTH))
+            db.session.add(Deviation(schedule_id=schedule_id,
+                                     date=date,
+                                     start=time(hour=8),
+                                     lunch_start=time(hour=11, minute=30),
+                                     lunch_end=time(hour=12, minute=30),
+                                     end=time(hour=16)))
+
+        # Create a schedule for each work_period. Assuming that work_period_ids are integers
+        for work_period_id in range(1, NUMBER_OF_WORK_PERIODS + 1):
+            work_period = WorkPeriod.query.get(work_period_id)
+            db.session.add(Schedule(user_id=user_id, work_period_id=work_period.id))
+
+            schedule = Schedule.query.filter_by(work_period_id=work_period.id, user_id=user_id).first()
+            # Add a base_schedule & some deviations to the recently created schedule
+            generate_base_schedule(schedule.id)
+            for deviation in range(DEVIATIONS_PER_SCHEDULE):
+                generate_deviation(schedule.id)
+
+    def insert_admin():
+        """Insert an admin-account based on data from `.env`."""
+        db.session.add(User(first_name=os.environ.get('CHRONOS_ADMIN_FIRST_NAME'),
+                            last_name=os.environ.get('CHRONOS_ADMIN_LAST_NAME'),
+                            email=os.environ.get('CHRONOS_ADMIN'),
+                            password=os.environ.get('CHRONOS_ADMIN_PASSWORD')))
+
+    def insert_teachers():
+        """Insert some teachers."""
+        first_names = ['Carl', 'Daniel', 'Gustav', 'Britt', 'Marie', 'Ulla-Carin']
+        last_names = ['Svensson', 'Itzler', 'Wilde', 'Birgersson', 'Stjärnberg', 'Johansson' ]
+        emails = ['carl@banan.se', 'daniel.itzler@hotmail.nu', 'gustavwilde@live.se', 'britt_brigersson68@google.se', 'Marie1789@mex.nu', 'ullacarin45@hej.se']
+
+        def generate_last_seen_date():
+            """Generate a 'last_seen'-date."""
+            td = timedelta(days=randint(30, 90), hours=randint(1, 24), minutes=randint(1, 59))
+            return datetime.now() - td
+
+        for i in range(len(first_names)):
+            db.session.add(User(first_name=first_names[i],
+                                last_name=last_names[i],
+                                email=emails[i],
+                                last_seen=generate_last_seen_date()))
+
+            # Add a schedule to the recently created teacher
+            user = User.query.filter_by(email=emails[i]).first()
+            insert_schedules(user.id)
+
+    insert_admin()
+    insert_work_periods(NUMBER_OF_WORK_PERIODS, WORK_PERIOD_LENGTH)
+    insert_teachers()
     db.session.commit()
 
 
