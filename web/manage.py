@@ -90,7 +90,7 @@ def lint(all, stats):
         sys.argv = ['flake8', '.']
     else:
         print('Running Linter...')
-        sys.argv = ['flake8', APP_FOLDER]
+        sys.argv = ['flake8', APP_FOLDER, 'tests']
 
     if stats:
         sys.argv.extend(['--statistics', '-qq'])
