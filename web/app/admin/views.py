@@ -83,14 +83,19 @@ def remove_teacher():
 @admin_required
 def edit_teacher(id):
     user = User.query.filter_by(id=id).first()
-    form = EditTeacherForm(obj=user)
 
-    if form.validate_on_submit():
-        form.populate_obj(user)
-        db.session.commit()
-        return redirect(url_for('admin.teachers'))
+    if user:
+        form = EditTeacherForm(obj=user)
 
-    return render_template('admin/edit.html', form=form, form_name='lärare')
+        if form.validate_on_submit():
+            form.populate_obj(user)
+            db.session.commit()
+            return redirect(url_for('admin.teachers'))
+
+        return render_template('admin/edit.html', form=form, form_name='lärare')
+
+    else:
+        abort(400)
 
 
 @admin.route('/teachers/upload', methods=['GET', 'POST'])
@@ -134,11 +139,16 @@ def add_work_period():
 @admin_required
 def edit_work_period(id):
     work_period = WorkPeriod.query.filter_by(id=id).first()
-    form = EditWorkPeriodForm(obj=work_period)
 
-    if form.validate_on_submit():
-        form.populate_obj(work_period)
-        db.session.commit()
-        return redirect(url_for('admin.work_periods'))
+    if work_period:
+        form = EditWorkPeriodForm(obj=work_period)
 
-    return render_template('admin/edit.html', form=form, form_name='arbetsperiod')
+        if form.validate_on_submit():
+            form.populate_obj(work_period)
+            db.session.commit()
+            return redirect(url_for('admin.work_periods'))
+
+        return render_template('admin/edit.html', form=form, form_name='arbetsperiod')
+
+    else:
+        abort(400)
