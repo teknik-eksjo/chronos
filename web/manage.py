@@ -209,12 +209,33 @@ def seed():
             for deviation in range(DEVIATIONS_PER_SCHEDULE):
                 generate_deviation(schedule.id)
 
-    def insert_admin():
-        """Insert an admin-account based on data from `.env`."""
+    def insert_admins():
+        """Insert 1 super admin based on data from `.env` and some normal admins."""
         db.session.add(User(first_name=os.environ.get('CHRONOS_ADMIN_FIRST_NAME'),
                             last_name=os.environ.get('CHRONOS_ADMIN_LAST_NAME'),
                             email=os.environ.get('CHRONOS_ADMIN'),
                             password=os.environ.get('CHRONOS_ADMIN_PASSWORD')))
+
+        first_names = ['Markus', 'Bengt']
+        last_names = ['Johansson', 'Lincoln']
+        emails = ['markus.johansson68@hotmail.com', 'bengt.swag.lincoln@google.se']
+
+        for i in range(len(first_names)):
+            db.session.add(User(first_name=first_names[i],
+                                last_name=last_names[i],
+                                email=emails[i],
+                                password='admin'))
+
+    def insert_principals():
+        """Insert some principals."""
+        first_names = ['Anna', 'Thomas']
+        last_names = ['Ullman', 'Eliasson']
+        emails = ['anna.ullman@live.se', 'thomaseliasson@hotmail.se']
+        # Generate last seen date?
+        for i in range(len(first_names)):
+            db.session.add(User(first_name=first_names[i],
+                                last_name=last_names[i],
+                                email=emails[i]))
 
     def insert_teachers():
         """Insert some teachers."""
@@ -237,7 +258,8 @@ def seed():
             user = User.query.filter_by(email=emails[i]).first()
             insert_schedules(user.id)
 
-    insert_admin()
+    insert_admins()
+    insert_principals()
     insert_work_periods(NUMBER_OF_WORK_PERIODS, WORK_PERIOD_LENGTH)
     insert_teachers()
     db.session.commit()
