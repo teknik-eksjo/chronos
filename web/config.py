@@ -37,6 +37,7 @@ class TestingConfig(Config):
 
     WTF_CSRF_ENABLED = False
 
+
 class ProductionConfig(Config):
     pass
 

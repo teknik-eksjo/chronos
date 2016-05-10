@@ -32,6 +32,7 @@ def db(app, request):
     """Session wide database connection."""
 
     def teardown():
+        _db.session.close_all()
         _db.drop_all()
 
     _db.app = app

@@ -140,7 +140,7 @@ def seed():
                  last_name=os.environ.get('CHRONOS_ADMIN_LAST_NAME'),
                  email=os.environ.get('CHRONOS_ADMIN'),
                  password=os.environ.get('CHRONOS_ADMIN_PASSWORD'))
-    
+
 
     first_names = ['Carl', 'Daniel', 'Gustav', 'Britt', 'Marie', 'Ulla-Carin']
     last_names = ['Svensson', 'Itzler', 'Wilde', 'Birgersson', 'Stjärnberg', 'Johansson' ]
@@ -152,7 +152,7 @@ def seed():
         start_date = datetime.now()
 
         return start_date - td
-    
+
     for i in range(len(first_names)):
         first_name = first_names[i]
         last_name = last_names[i]
@@ -164,6 +164,6 @@ def seed():
 
     db.session.commit()
 
-    
+
 if __name__ == "__main__":
     manager.run()
