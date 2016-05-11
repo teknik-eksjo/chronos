@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='css/slider-style.sass.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='css/style.sass.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block page_content %}
+  <div class="page-header">
+    <h1>Avvikelser</h1>
+  </div>
+  <br>
+  <div class="row slider-row">
+    <div class="form-group required col-md-2 col-sm-3 col-xs-5 vcenter">
+      <!--<label class="control-label" for="start">Datum</label>-->
+      <input class="form-control" id="start" name="start" required type="date">
+    </div>
+    <div class="slider-container col-md-9 col-xs-10 vcenter">
+      <div class="slider sleep period-slider pull-right"></div>
+    </div>
+    <button class="btn remove-deviation col-md-1 col-xs-2 vcenter">&#10005;</button>
+  </div>
+  <section class="buttons">
+    <div class="row">
+      <button class="btn add-deviation center-block">&#10133;</button>
+      <br><br>
+    </div>
+    <div class="row">
+      <a type="button" href="{{ url_for('main.base_schedule') }}" class="btn btn-default">Tillbaka</a>
+      <a type="button" href="#" class="btn btn-default pull-right">Vidare</a>
+    </div>
+  </section>
+  <br>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js" ></script>
+  <script src="https://use.fontawesome.com/69ea94c53e.js"></script>
+  <script src="{{ url_for('static', filename='js/lib/slider.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main/slider-config.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main/deviations.js') }}"></script>
+{% endblock %}

@@ -28,3 +28,17 @@ def base_schedule():
         return render_template('main/base_schedule.html')
 
     return ''
+
+
+@main.route('/deviations', methods=['GET', 'POST'])
+@login_required
+def deviations():
+    data = request.get_json()
+
+    if data:
+        print(data)
+
+    else:
+        return render_template('main/deviations.html')
+
+    return ''

@@ -1,7 +1,11 @@
 @import "utilities/variables"
 
+.slider-container
+  height: 40px
+  padding: 10px 0 0
 .ui-slider
-  margin: 5px 0 80px !important
+  margin: 0 !important
+  padding: 0 !important
   text-decoration: none !important
   border-radius: 1.5px
   border: solid 1px $light-grey
@@ -11,6 +15,9 @@
     outline: none !important
     border-radius: 50%
     border: none
+
+    &:hover
+      cursor: pointer
 
   .ui-slider-tooltip
     display: none

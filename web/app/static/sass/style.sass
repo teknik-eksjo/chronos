@@ -5,3 +5,33 @@
 
 .fixed-width-button
   width: 75px
+
+.vcenter
+  top: 50%
+  transform: translateY(-50%)
+
+.remove-deviation, .add-deviation
+  background: transparent
+  margin: none
+  padding: none
+  outline: none !important
+  box-shadow: none !important
+  line-height: 0 !important
+
+  transition: 0.05s ease
+
+.remove-deviation
+  font-size: 2em
+  color: $red !important
+.add-deviation
+  font-size: 3em
+  color: $green !important
+
+.add-deviation:hover
+  font-size: 3.4em
+.remove-deviation:hover
+  font-size: 2.3em
+
+.slider-row
+  align-items: center
+  padding: 35px 0
