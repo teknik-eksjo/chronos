@@ -10,7 +10,7 @@ from wtforms.validators import (Email,
                                 Required)
 
 from ..models import User
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms import ValidationError
 
 

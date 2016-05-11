@@ -7,10 +7,10 @@ from flask import (current_app,
                    jsonify,
                    abort)
 
-from flask.ext.login import (login_user,
-                             logout_user,
-                             login_required,
-                             current_user)
+from flask_login import (login_user,
+                         logout_user,
+                         login_required,
+                         current_user)
 
 from . import admin
 from .. import db

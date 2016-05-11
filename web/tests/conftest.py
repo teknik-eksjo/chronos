@@ -1,6 +1,7 @@
+import pytest
 from app import create_app
 from app import db as _db
-import pytest
+from app.models import Role
 
 
 def pytest_collection_modifyitems(items):
@@ -22,17 +23,27 @@ def pytest_collection_modifyitems(items):
 
 
 @pytest.fixture(scope='session')
-def app():
+def app(request):
     """Create an application context."""
     app = create_app('testing')
+    ctx = app.app_context()
+    ctx.push()
+
+    def teardown():
+        ctx.pop()
+
+    request.addfinalizer(teardown)
+
     return app
 
 
 @pytest.fixture(scope='session')
 def db(app, request):
     """Session wide database connection."""
-    _db.app = app
+    _db.init_app(app)
     _db.create_all()
+    _db.session.commit()
+    Role.insert_roles()
 
     def teardown():
         _db.session.close_all()
@@ -42,7 +53,7 @@ def db(app, request):
     return _db
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='function', autouse=True)
 def session(db, request):
     """Create a new database session for a test."""
     connection = db.engine.connect()
