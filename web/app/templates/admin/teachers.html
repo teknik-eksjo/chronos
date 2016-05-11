@@ -24,6 +24,7 @@
             <th>Förnamn</th>
             <th>Efternamn</th>
             <th>Email</th>
+            <th>Timmar / vecka</th>
             <th>Senast aktiv</th>
             <th></th>
             <th></th>
@@ -35,6 +36,7 @@
                 <td class="first-name">{{ teacher.first_name }}</td>
                 <td class="last-name">{{ teacher.last_name }}</td>
                 <td>{{ teacher.email }}</td>
+                <td>{{ teacher.work_hours }}</td>
                 <td>{{ teacher.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</td>
                 <td><a href="{{ url_for('admin.edit_teacher', id=teacher.id) }}" class="btn btn-primary">Redigera</a></td>
                 <td><a href="#" class="btn btn-danger confirm-delete" data-userId="{{ teacher.id }}" data-firstname="{{ teacher.first_name }}" data-lastname="{{ teacher.last_name }}">Ta bort</a></td>

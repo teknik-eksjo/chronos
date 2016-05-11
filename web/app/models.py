@@ -74,6 +74,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(64))
     password_hash = db.Column(db.String(128), default=None)
     is_active = db.Column(db.Boolean, default=True)
+    work_hours = db.Column(db.Integer)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     schedules = db.relationship('Schedule', backref='user', lazy='dynamic')

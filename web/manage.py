@@ -243,6 +243,7 @@ def seed():
         last_names = ['Svensson', 'Itzler', 'Wilde', 'Birgersson', 'Stjärnberg', 'Johansson']
         emails = ['carl@banan.se', 'daniel.itzler@hotmail.nu', 'gustavwilde@live.se',
                   'britt_brigersson68@google.se', 'Marie1789@mex.nu', 'ullacarin45@hej.se']
+        work_hours = [35, 34, 32, 35, 20, 15]
 
         def generate_last_seen_date():
             """Generate a 'last_seen'-date."""
@@ -253,7 +254,8 @@ def seed():
             db.session.add(User(first_name=first_names[i],
                                 last_name=last_names[i],
                                 email=emails[i],
-                                last_seen=generate_last_seen_date()))
+                                last_seen=generate_last_seen_date(),
+                                work_hours=work_hours[i]))
 
             # Add a schedule to the recently created teacher
             user = User.query.filter_by(email=emails[i]).first()
