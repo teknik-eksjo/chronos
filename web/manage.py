@@ -224,7 +224,8 @@ def seed():
             db.session.add(User(first_name=first_names[i],
                                 last_name=last_names[i],
                                 email=emails[i],
-                                password='admin'))
+                                password='moderator',
+                                role=Role.query.filter_by(name='Moderator').first()))
 
     def insert_principals():
         """Insert some principals."""
@@ -235,7 +236,9 @@ def seed():
         for i in range(len(first_names)):
             db.session.add(User(first_name=first_names[i],
                                 last_name=last_names[i],
-                                email=emails[i]))
+                                email=emails[i],
+                                password='principal',
+                                role=Role.query.filter_by(name='Principal').first()))
 
     def insert_teachers():
         """Insert some teachers."""
