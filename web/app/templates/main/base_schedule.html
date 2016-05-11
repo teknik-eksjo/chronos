@@ -14,40 +14,40 @@
   </div>
   <div class="container">
     <br>
-    <div class="row">
+    <div class="row slider-row">
       <p class="col-md-1 col-xs-12">Måndag:</p>
-      <div class="col-md-11 col-xs-12">
-        <div class="slider sleep period-slider" index="0"></div>
+      <div class="slider-container col-md-11 col-xs-12">
+        <div class="slider sleep period-slider pull-right" index="0"></div>
       </div>
     </div>
-    <div class="row">
+    <div class="row slider-row">
       <p class="col-md-1 col-xs-12">Tisdag:</p>
-      <div class="col-md-11 col-xs-12">
-        <div class="slider sleep period-slider" index="1"></div>
+      <div class="slider-container col-md-11 col-xs-12">
+        <div class="slider sleep period-slider pull-right" index="1"></div>
       </div>
     </div>
-    <div class="row">
+    <div class="row slider-row">
       <p class="col-md-1 col-xs-12">Onsdag:</p>
-      <div class="col-md-11 col-xs-12">
-        <div class="slider sleep period-slider" index="2"></div>
+      <div class="slider-container col-md-11 col-xs-12">
+        <div class="slider sleep period-slider pull-right" index="2"></div>
       </div>
     </div>
-    <div class="row">
+    <div class="row slider-row">
       <p class="col-md-1 col-xs-12">Torsdag:</p>
-      <div class="col-md-11 col-xs-12">
-        <div class="slider sleep period-slider" index="3"></div>
+      <div class="slider-container col-md-11 col-xs-12">
+        <div class="slider sleep period-slider pull-right" index="3"></div>
       </div>
     </div>
-    <div class="row">
+    <div class="row slider-row">
       <p class="col-md-1 col-xs-12">Fredag:</p>
-      <div class="col-md-11 col-xs-12">
-        <div class="slider sleep period-slider" index="4"></div>
+      <div class="slider-container col-md-11 col-xs-12">
+        <div class="slider sleep period-slider pull-right" index="4"></div>
       </div>
     </div>
     <br>
     <div class="row">
-      <button type="button" class="btn btn-default">Tillbaka</button>
-      <button type="button" class="btn btn-default pull-right">Vidare</button>
+      <a type="button" href="#" class="btn btn-default">Tillbaka</button>
+      <a type="button" href="{{ url_for('main.deviations') }}" class="btn btn-default pull-right">Vidare</a>
     </div>
     <br>
   </div>
@@ -57,5 +57,6 @@
   {{ super() }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js" ></script>
   <script src="{{ url_for('static', filename='js/lib/slider.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/main/create-slider.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main/slider-config.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main/base-schedule.js') }}"></script>
 {% endblock %}
