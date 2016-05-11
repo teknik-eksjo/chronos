@@ -1,7 +1,7 @@
 from . import main
 from .. import db
 from flask import render_template, url_for, redirect
-from flask.ext.login import login_required, request
+from flask_login import login_required, request
 from ..models import Workday, BaseSchedule
 # from .forms import Form
 

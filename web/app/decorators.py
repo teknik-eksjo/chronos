@@ -1,6 +1,6 @@
 from .models import Permission
 from flask import abort
-from flask.ext.login import current_user
+from flask_login import current_user
 from functools import wraps
 
 

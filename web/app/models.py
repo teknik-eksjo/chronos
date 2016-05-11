@@ -8,7 +8,7 @@ from werkzeug.security import(generate_password_hash,
 from . import db, login_manager
 from app.exceptions import ValidationError
 from datetime import datetime, time
-from flask.ext.login import UserMixin, AnonymousUserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import hashlib
 

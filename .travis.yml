@@ -9,7 +9,6 @@ install:
 before_script:
   - psql -c 'CREATE DATABASE travis_ci_test;' -U postgres
   - cd web
-  - ./manage.py deploy
 script:
   - ./manage.py lint
   - ./manage.py test
