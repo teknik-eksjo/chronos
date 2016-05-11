@@ -1,8 +1,6 @@
 import os
 
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'very hard to guess string'
 
@@ -27,13 +25,15 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') or 'postgresql+psycopg2://postgres:secretpassword@localhost/development'
+    SQLALCHEMY_DATABASE_URI = os.environ.get(('DEV_DATABASE_URI') or
+                                             'postgresql+psycopg2://postgres:secretpassword@localhost/development')
 
 
 class TestingConfig(Config):
     TESTING = True
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or 'postgresql+psycopg2://postgres:secretpassword@localhost/testing'
+    SQLALCHEMY_DATABASE_URI = os.environ.get(('TEST_DATABASE_URI') or
+                                             'postgresql+psycopg2://postgres:secretpassword@localhost/testing')
 
     WTF_CSRF_ENABLED = False
 
@@ -41,7 +41,8 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     pass
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'postgresql+psycopg2://postgres:secretpassword@localhost/postgres'
+    SQLALCHEMY_DATABASE_URI = os.environ.get(('DATABASE_URI') or
+                                             'postgresql+psycopg2://postgres:secretpassword@localhost/postgres')
 
 
 config = {

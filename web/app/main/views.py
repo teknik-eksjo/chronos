@@ -17,11 +17,12 @@ def base_schedule():
     data = request.get_json()
 
     if data:
-        index = data['index']
-        start = data['values'][0]
-        lunch_start = data['values'][1]
-        lunch_end = data['values'][2]
-        end = data['values'][3]
+        print(data)
+        # index = data['index']
+        # start = data['values'][0]
+        # lunch_start = data['values'][1]
+        # lunch_end = data['values'][2]
+        # end = data['values'][3]
 
     else:
         return render_template('main/base_schedule.html')

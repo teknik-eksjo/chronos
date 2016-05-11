@@ -122,7 +122,7 @@ def deploy():
 
 @manager.command
 def seed():
-    """Resets and creats new db, then fills the db with data to aid manual testing & debugging."""
+    """Reset and create new db with data to aid manual testing & debugging."""
     from datetime import datetime, timedelta, time
     from random import randint
     from flask_migrate import upgrade
@@ -240,8 +240,9 @@ def seed():
     def insert_teachers():
         """Insert some teachers."""
         first_names = ['Carl', 'Daniel', 'Gustav', 'Britt', 'Marie', 'Ulla-Carin']
-        last_names = ['Svensson', 'Itzler', 'Wilde', 'Birgersson', 'Stjärnberg', 'Johansson' ]
-        emails = ['carl@banan.se', 'daniel.itzler@hotmail.nu', 'gustavwilde@live.se', 'britt_brigersson68@google.se', 'Marie1789@mex.nu', 'ullacarin45@hej.se']
+        last_names = ['Svensson', 'Itzler', 'Wilde', 'Birgersson', 'Stjärnberg', 'Johansson']
+        emails = ['carl@banan.se', 'daniel.itzler@hotmail.nu', 'gustavwilde@live.se',
+                  'britt_brigersson68@google.se', 'Marie1789@mex.nu', 'ullacarin45@hej.se']
 
         def generate_last_seen_date():
             """Generate a 'last_seen'-date."""
