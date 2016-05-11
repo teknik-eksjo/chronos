@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms.validators import Required, Length, Email, EqualTo, Regexp
+from wtforms.validators import Required, Length, Email, EqualTo, Regexp, NumberRange
 from wtforms import ValidationError
 from wtforms.fields.html5 import DateField
 from ..models import User
@@ -16,6 +16,11 @@ class AddTeacherForm(Form):
         Required(), Length(1, 64), Regexp('^[A-Ö]*(-| )?[A-Ö]*(-| )?[A-Ö]*$', re.IGNORECASE,
                                           'Efternamn får endast innehålla A-Ö, a-ö, mellanslag och -.')])
     email = StringField('E-post', validators=[Required(), Length(1, 64), Email()])
+    work_hours = IntegerField('Arbetstimmar per vecka', validators=[Required(),
+                                                                    NumberRange(min=0,
+                                                                                max=50,
+                                                                                message='Måste vara mellan 0\
+                                                                                         och 50 timmar.')])
     submit = SubmitField('Lägg till')
 
     def validate_email(self, field):
@@ -31,6 +36,11 @@ class EditTeacherForm(Form):
         Required(), Length(1, 64), Regexp('^[A-Ö]*(-| )?[A-Ö]*(-| )?[A-Ö]*$', re.IGNORECASE,
                                           'Efternamn får endast innehålla A-Ö, a-ö, mellanslag och -.')])
     email = StringField('E-post', validators=[Required(), Length(1, 64), Email()])
+    work_hours = IntegerField('Arbetstimmar per vecka', validators=[Required(),
+                                                                    NumberRange(min=0,
+                                                                                max=50,
+                                                                                message='Måste vara mellan 0\
+                                                                                         och 50 timmar.')])
     submit = SubmitField('Spara')
 
 
