@@ -8,7 +8,7 @@ from werkzeug.security import(generate_password_hash,
 from . import db, login_manager
 from app.exceptions import ValidationError
 from datetime import datetime, time
-from flask_login import UserMixin, AnonymousUserMixin
+from flask.ext.login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import hashlib
 
@@ -74,7 +74,6 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(64))
     password_hash = db.Column(db.String(128), default=None)
     is_active = db.Column(db.Boolean, default=True)
-    work_hours = db.Column(db.Integer)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     schedules = db.relationship('Schedule', backref='user', lazy='dynamic')
@@ -148,7 +147,7 @@ class User(UserMixin, db.Model):
     def generate_email_login_token(self, expiration=3600):
         """Used to generate a token for token-based sign in."""
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'login': self.id})
+        return s.dumps({'logi': self.id})
 
     def can(self, permissions):
         """Used to check if a user has the given permissions."""
@@ -163,7 +162,7 @@ class User(UserMixin, db.Model):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
 
-    def generate_auth_token(self, expiration):
+    def generate_auth_token(self, expiration):  # Wouldn't a default value for expiraiton be good?
         """Return an auth token.
 
         Args:
