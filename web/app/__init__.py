@@ -1,10 +1,12 @@
 from config import config
+from celery import Celery
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
+
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -46,3 +48,22 @@ def create_app(config_name):
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
     return app
+
+
+def create_celery_app(app=None):
+    import os
+    app = app or create_app('celery')
+    celery = Celery(__name__)
+    celery.config_from_object(config['celery'])
+
+    TaskBase = celery.Task
+
+    class ContextTask(TaskBase):
+        abstract = True
+
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return TaskBase.__call__(self, *args, **kwargs)
+
+    celery.Task = ContextTask
+    return celery
