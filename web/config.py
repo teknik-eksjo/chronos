@@ -1,4 +1,5 @@
 import os
+from celery.schedules import crontab
 
 
 class Config:
@@ -31,6 +32,14 @@ class Config:
         password=os.getenv('RABBITMQ_DEFAULT_PASSWORD') or 'secretpassword',
         hostname=RABBITMQ_HOSTNAME,
         vhost=os.getenv('RABBITMQ_ENV_VHOST') or '')
+
+    CELERYBEAT_SCHEDULE = {
+        'remove-users-every-week': {
+            'task': 'app.tasks.cleanup_inactive',
+            'schedule': crontab(hour=2, minute=30, day_of_week=1),
+            'args': ()
+        },
+    }
 
 #    BROKER_HEARTBEAT = '?heartbeat=30'
 #    if not BROKER_URL.endswith(BROKER_HEARTBEAT):

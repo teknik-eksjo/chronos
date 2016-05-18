@@ -33,3 +33,13 @@ services:
     volumes:
       - /usr/src/app/static
     command: celery -A app.celery worker
+
+  beat:
+    build: ./web
+    links:
+      - postgresql
+      - rabbitmq
+      - redis
+    volumes:
+      - /usr/src/app/static
+    command: celery -A app.celery beat
