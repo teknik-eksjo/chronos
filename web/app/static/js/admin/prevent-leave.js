@@ -3,7 +3,13 @@ $(document).ready(function () {
     var first_name = $('#first_name').val()
     var last_name = $('#last_name').val()
     var email = $('#email').val()
+
+    var startDate = $('#start').val()
+    var endDate = $('#end').val()
+
     var savePressed = false
+
+
 
     $('#submit').click(function () {
         savePressed = true
@@ -22,6 +28,14 @@ $(document).ready(function () {
         }
 
         if ($('#email').val() !== email) {
+            preventLeave = true
+        }
+
+        if ($('#start').val() !== startDate) {
+            preventLeave = true
+        }
+
+        if ($('#end').val() !== endDate) {
             preventLeave = true
         }
 
