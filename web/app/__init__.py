@@ -6,9 +6,11 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CsrfProtect
 
 
 bootstrap = Bootstrap()
+csrf = CsrfProtect()
 db = SQLAlchemy()
 login_manager = LoginManager()
 mail = Mail()
@@ -30,6 +32,7 @@ def create_app(config_name):
         app.wsgi_app = SassMiddleware(app.wsgi_app, {'app': ('static/sass', 'static/css', '/static/css')})
 
     bootstrap.init_app(app)
+    csrf.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)

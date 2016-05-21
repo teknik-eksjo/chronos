@@ -3,6 +3,7 @@
 <meta charset="UTF-8" />
 <meta name="google" content="notranslate" />
 <meta http-equiv="Content-Language" content="sv_SE" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 {{ super() }}
 {% endblock %}
 {% block styles%}
@@ -30,6 +31,16 @@
   {{ moment.include_moment() }}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script type="text/javascript">
+  
     var $SCRIPT_ROOT = {{ url_for('main.index', _external = True)|tojson|safe }}
+    var csrftoken = $('meta[name=csrf-token]').attr('content')
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken)
+            }
+        }
+    })
   </script>
 {% endblock %}
