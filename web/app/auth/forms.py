@@ -28,7 +28,7 @@ class ChangePasswordForm(Form):
     password = PasswordField('Nytt lösenord', validators=[Required(),
                                                           EqualTo('password2',
                                                           message='Lösenorden måste matcha')])
-    password2 = PasswordField('Verfiera nytt lösenord', validators=[Required()])
+    password2 = PasswordField('Verifiera nytt lösenord', validators=[Required()])
     submit = SubmitField('Byt lösenord')
 
 
