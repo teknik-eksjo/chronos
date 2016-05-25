@@ -11,12 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   Introduction
+   GetStartedGuide
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
