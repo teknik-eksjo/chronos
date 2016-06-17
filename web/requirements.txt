@@ -19,3 +19,4 @@ pytest-mock>=0.11.0
 pytest-selenium>=1.2.1
 redis>=2.10.5
 Sphinx>=1.4.1
+sphinx_rtd_theme
