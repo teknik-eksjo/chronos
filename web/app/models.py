@@ -1,10 +1,5 @@
-from flask import (current_app,
-                   request,
-                   url_for)
-
-from werkzeug.security import(generate_password_hash,
-                              check_password_hash)
-
+from flask import current_app, request, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db, login_manager
 from app.exceptions import ValidationError
 from datetime import datetime, time
