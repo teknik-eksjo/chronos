@@ -20,3 +20,19 @@ def do_something(user_id):
     except NoResultFound as e:
         logger.info('Failed to do something useful!')
         raise Retry(exc=e, when=10)
+
+
+@celery.task
+def cleanup_inactive():
+    """Used to remove users marked as inactive every week."""
+    logger.error('Cleaning up inactive users.')
+
+    users_to_delete = User.query.filter_by(is_active=False).all()
+
+    try:
+        for user in users_to_delete:
+            db.session.delete(user)
+            logger.error('Removed {} {} with user id {}'.format(user.first_name, user.last_name, user.id))
+        db.session.commit()
+    except Exception as e:
+        logger.error('Cleaning failed: {}'.format(e))
